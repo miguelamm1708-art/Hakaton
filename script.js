@@ -1,216 +1,285 @@
-// 1. Estructura de los 48 países divididos en 12 bloques (A-L) con sus partidos simulados
-const partidosMundial = [
-    {
-        grupo: "GRUPO A",
-        clasificacion: [
-            { pos: 1, equipo: "México", bandera: "🇲🇽", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 },
-            { pos: 2, equipo: "Estados Unidos", bandera: "🇺🇸", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 },
-            { pos: 3, equipo: "Canadá", bandera: "🇨🇦", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 },
-            { pos: 4, equipo: "Argentina", bandera: "🇦🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }
-        ],
-        partidos: [
-            { id: 1, local: "México", banderaL: "🇲🇽", visitante: "Argentina", banderaV: "🇦🇷", golesLocalReal: 1, golesVisitanteReal: 2, prediccionComunidad: { local: 30, empate: 20, visitante: 50 } }
-        ]
-    },
-    {
-        grupo: "GRUPO B",
-        clasificacion: [
-            { pos: 1, equipo: "Francia", bandera: "🇫🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 },
-            { pos: 2, equipo: "España", bandera: "🇪🇸", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 },
-            { pos: 3, equipo: "Inglaterra", bandera: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 },
-            { pos: 4, equipo: "Brasil", bandera: "🇧🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }
-        ],
-        partidos: [
-            { id: 2, local: "España", banderaL: "🇪🇸", visitante: "Brasil", banderaV: "🇧🇷", golesLocalReal: 2, golesVisitanteReal: 1, prediccionComunidad: { local: 45, empate: 25, visitante: 30 } }
-        ]
-    },
-    { grupo: "GRUPO C", clasificacion: [{ pos: 1, equipo: "Alemania", bandera: "🇩🇪", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Bélgica", bandera: "🇧🇪", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Portugal", bandera: "🇵🇹", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Países Bajos", bandera: "🇳🇱", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 3, local: "Alemania", banderaL: "🇩🇪", visitante: "Portugal", banderaV: "🇵🇹", golesLocalReal: 1, golesVisitanteReal: 1, prediccionComunidad: { local: 35, empate: 35, visitante: 30 } }] },
-    { grupo: "GRUPO D", clasificacion: [{ pos: 1, equipo: "Italia", bandera: "🇮🇹", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Croacia", bandera: "🇭🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Uruguay", bandera: "🇺🇾", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Colombia", bandera: "🇨🇴", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 4, local: "Uruguay", banderaL: "🇺🇾", visitante: "Colombia", banderaV: "🇨🇴", golesLocalReal: 0, golesVisitanteReal: 0, prediccionComunidad: { local: 40, empate: 30, visitante: 30 } }] },
-    { grupo: "GRUPO E", clasificacion: [{ pos: 1, equipo: "Marruecos", bandera: "🇲🇦", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Japón", bandera: "🇯🇵", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Senegal", bandera: "🇸🇳", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Ecuador", bandera: "🇪🇨", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 5, local: "Japón", banderaL: "🇯🇵", visitante: "Marruecos", banderaV: "🇲🇦", golesLocalReal: 1, golesVisitanteReal: 0, prediccionComunidad: { local: 50, empate: 30, visitante: 20 } }] },
-    { grupo: "GRUPO F", clasificacion: [{ pos: 1, equipo: "Suiza", bandera: "🇨🇭", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Dinamarca", bandera: "🇩🇰", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Irán", bandera: "🇮🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Corea del Sur", bandera: "🇰🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 6, local: "Dinamarca", banderaL: "🇩🇰", visitante: "Corea del Sur", banderaV: "🇰🇷", golesLocalReal: 2, golesVisitanteReal: 2, prediccionComunidad: { local: 40, empate: 40, visitante: 20 } }] },
-    { grupo: "GRUPO G", clasificacion: [{ pos: 1, equipo: "Ucrania", bandera: "🇺🇦", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Australia", bandera: "🇦🇺", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Túnez", bandera: "🇹🇳", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Chile", bandera: "🇨🇱", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 7, local: "Chile", banderaL: "🇨🇱", visitante: "Australia", banderaV: "🇦🇺", golesLocalReal: 1, golesVisitanteReal: 0, prediccionComunidad: { local: 45, empate: 35, visitante: 20 } }] },
-    { grupo: "GRUPO H", clasificacion: [{ pos: 1, equipo: "Perú", bandera: "🇵🇪", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Polonia", bandera: "🇵🇱", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Arabia Saudita", bandera: "🇸🇦", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Austria", bandera: "🇦🇹", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 8, local: "Perú", banderaL: "🇵🇪", visitante: "Polonia", banderaV: "🇵🇱", golesLocalReal: 1, golesVisitanteReal: 1, prediccionComunidad: { local: 30, empate: 40, visitante: 30 } }] },
-    { grupo: "GRUPO I", clasificacion: [{ pos: 1, equipo: "Suecia", bandera: "🇸🇪", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Nigeria", bandera: "🇳🇬", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Costa Rica", bandera: "🇨🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Rumania", bandera: "🇷🇴", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 9, local: "Costa Rica", banderaL: "🇨🇷", visitante: "Nigeria", banderaV: "🇳🇬", golesLocalReal: 2, golesVisitanteReal: 1, prediccionComunidad: { local: 35, empate: 25, visitante: 40 } }] },
-    { grupo: "GRUPO J", clasificacion: [{ pos: 1, equipo: "Panamá", bandera: "🇵🇦", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Argelia", bandera: "🇩🇿", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Gales", bandera: "🏴󠁧󠁢󠁷󠁬󠁳󠁿", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Paraguay", bandera: "🇵🇾", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 10, local: "Panamá", banderaL: "🇵🇦", visitante: "Paraguay", banderaV: "🇵🇾", golesLocalReal: 0, golesVisitanteReal: 1, prediccionComunidad: { local: 25, empate: 35, visitante: 40 } }] },
-    { grupo: "GRUPO K", clasificacion: [{ pos: 1, equipo: "Ghana", bandera: "🇬🇭", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Camerún", bandera: "🇨🇲", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Turquía", bandera: "🇹🇷", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Venezuela", bandera: "🇻🇪", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 11, local: "Venezuela", banderaL: "🇻🇪", visitante: "Turquía", banderaV: "🇹🇷", golesLocalReal: 2, golesVisitanteReal: 0, prediccionComunidad: { local: 60, empate: 25, visitante: 15 } }] },
-    { grupo: "GRUPO L", clasificacion: [{ pos: 1, equipo: "Nueva Zelanda", bandera: "🇳🇿", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 2, equipo: "Honduras", bandera: "🇭🇳", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 3, equipo: "Jamaica", bandera: "🇯🇲", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }, { pos: 4, equipo: "Sudáfrica", bandera: "🇿🇦", pj: 0, pg: 0, pe: 0, pp: 0, pts: 0 }], partidos: [{ id: 12, local: "Honduras", banderaL: "🇭🇳", visitante: "Jamaica", banderaV: "🇯🇲", golesLocalReal: 1, golesVisitanteReal: 2, prediccionComunidad: { local: 40, empate: 20, visitante: 40 } }] }
+// 1. Estructura de la Fase 1: 48 países en 12 grupos (2 partidos por grupo)
+const gruposMundial = {
+    "Grupo A": [
+        { id: 1, local: "México", banderaL: "🇲🇽", pctL: 50, visitante: "Argentina", banderaV: "🇦🇷", pctV: 30, pctE: 20, completado: false, ganador: null, banderaG: "" },
+        { id: 2, local: "Estados Unidos", banderaL: "🇺🇸", pctL: 45, visitante: "Canadá", banderaV: "🇨🇦", pctV: 35, pctE: 20, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo B": [
+        { id: 3, local: "Francia", banderaL: "🇫🇷", pctL: 60, visitante: "Polonia", banderaV: "🇵🇱", pctV: 20, pctE: 20, completado: false, ganador: null, banderaG: "" },
+        { id: 4, local: "Ecuador", banderaL: "🇪🇨", pctL: 40, visitante: "Austria", banderaV: "🇦🇹", pctV: 40, pctE: 20, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo C": [
+        { id: 5, local: "España", banderaL: "🇪🇸", pctL: 55, visitante: "Túnez", banderaV: "🇹🇳", pctV: 20, pctE: 25, completado: false, ganador: null, banderaG: "" },
+        { id: 6, local: "Colombia", banderaL: "🇨🇴", pctL: 50, visitante: "Corea del Sur", banderaV: "🇰🇷", pctV: 30, pctE: 20, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo D": [
+        { id: 7, local: "Inglaterra", banderaL: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", pctL: 65, visitante: "Irán", banderaV: "🇮🇷", pctV: 15, pctE: 20, completado: false, ganador: null, banderaG: "" },
+        { id: 8, local: "Senegal", banderaL: "🇸🇳", pctL: 45, visitante: "Rumania", banderaV: "🇷🇴", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo E": [
+        { id: 9, local: "Bélgica", banderaL: "🇧🇪", pctL: 50, visitante: "Egipto", banderaV: "🇪🇬", pctV: 25, pctE: 25, completado: false, ganador: null, banderaG: "" },
+        { id: 10, local: "Perú", banderaL: "🇵🇪", pctL: 40, visitante: "Nigeria", banderaV: "🇳🇬", pctV: 40, pctE: 20, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo F": [
+        { id: 11, local: "Alemania", banderaL: "🇩🇪", pctL: 55, visitante: "Japón", banderaV: "🇯🇵", pctV: 30, pctE: 15, completado: false, ganador: null, banderaG: "" },
+        { id: 12, local: "Marruecos", banderaL: "🇲🇦", pctL: 45, visitante: "Escocia", banderaV: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo G": [
+        { id: 13, local: "Croacia", banderaL: "🇭🇷", pctL: 50, visitante: "Brasil", banderaV: "🇧🇷", pctV: 35, pctE: 15, completado: false, ganador: null, banderaG: "" },
+        { id: 14, local: "Uruguay", banderaL: "🇺🇾", pctL: 55, visitante: "Fiyi", banderaV: "🇫🇯", pctV: 15, pctE: 30, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo H": [
+        { id: 15, local: "Portugal", banderaL: "🇵🇹", pctL: 60, visitante: "Ghana", banderaV: "🇬🇭", pctV: 20, pctE: 20, completado: false, ganador: null, banderaG: "" },
+        { id: 16, local: "Chile", banderaL: "🇨🇱", pctL: 45, visitante: "Turquía", banderaV: "🇹🇷", pctV: 35, pctE: 20, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo I": [
+        { id: 17, local: "Países Bajos", banderaL: "🇳🇱", pctL: 55, visitante: "Ucrania", banderaV: "🇺🇦", pctV: 25, pctE: 20, completado: false, ganador: null, banderaG: "" },
+        { id: 18, local: "Argelia", banderaL: "🇩🇿", pctL: 35, visitante: "Panamá", banderaV: "🇵🇦", pctV: 40, pctE: 25, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo J": [
+        { id: 19, local: "Italia", banderaL: "🇮🇹", pctL: 50, visitante: "Suiza", banderaV: "🇨🇭", pctV: 30, pctE: 20, completado: false, ganador: null, banderaG: "" },
+        { id: 20, local: "Paraguay", banderaL: "🇵🇾", pctL: 45, visitante: "Catar", banderaV: "🇶🇦", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo K": [
+        { id: 21, local: "Dinamarca", banderaL: "🇩🇰", pctL: 50, visitante: "Venezuela", banderaV: "🇻🇪", pctV: 35, pctE: 15, completado: false, ganador: null, banderaG: "" },
+        { id: 22, local: "Camerún", banderaL: "🇨🇲", pctL: 40, visitante: "Australia", banderaV: "🇦🇺", pctV: 35, pctE: 25, completado: false, ganador: null, banderaG: "" }
+    ],
+    "Grupo L": [
+        { id: 23, local: "Suecia", banderaL: "🇸🇪", pctL: 45, visitante: "Honduras", banderaV: "🇭🇳", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" },
+        { id: 24, local: "Jamaica", banderaL: "🇯🇲", pctL: 40, visitante: "Costa Rica", banderaV: "🇨🇷", pctV: 40, pctE: 20, completado: false, ganador: null, banderaG: "" }
+    ]
+};
+
+// 2. Estructura de la Fase 2 (Dieciseisavos). Se emparejarán los ganadores de los grupos correlativos
+const partidosFase2 = [
+    { id: "F2-1", local: "Ganador P1 (Gr. A)", banderaL: "❓", visitante: "Ganador P3 (Gr. B)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-2", local: "Ganador P2 (Gr. A)", banderaL: "❓", visitante: "Ganador P4 (Gr. B)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-3", local: "Ganador P5 (Gr. C)", banderaL: "❓", visitante: "Ganador P7 (Gr. D)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-4", local: "Ganador P6 (Gr. C)", banderaL: "❓", visitante: "Ganador P8 (Gr. D)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-5", local: "Ganador P9 (Gr. E)", banderaL: "❓", visitante: "Ganador P11 (Gr. F)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-6", local: "Ganador P10 (Gr. E)", banderaL: "❓", visitante: "Ganador P12 (Gr. F)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-7", local: "Ganador P13 (Gr. G)", banderaL: "❓", visitante: "Ganador P15 (Gr. H)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-8", local: "Ganador P14 (Gr. G)", banderaL: "❓", visitante: "Ganador P16 (Gr. H)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-9", local: "Ganador P17 (Gr. I)", banderaL: "❓", visitante: "Ganador P19 (Gr. J)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-10", local: "Ganador P18 (Gr. I)", banderaL: "❓", visitante: "Ganador P20 (Gr. J)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-11", local: "Ganador P21 (Gr. K)", banderaL: "❓", visitante: "Ganador P23 (Gr. L)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
+    { id: "F2-12", local: "Ganador P22 (Gr. K)", banderaL: "❓", visitante: "Ganador P24 (Gr. L)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false }
 ];
 
-// Para recordar qué goles ha escrito el usuario y que no se borren al cambiar de pestaña
-const memoriaPronosticos = {};
+let vistaActual = "Fase 1"; // Puede ser "Fase 1" o "Fase 2"
+let grupoActivo = "Grupo A";
 
-let grupoActivoIndex = 0; // Por defecto empezamos mostrando el Grupo A
+// Genera la barra superior con las pestañas de Fase 1 (A-L) más el botón de la Fase 2
+function crearMenuGrupos() {
+    const menu = document.getElementById("menu-navegacion-grupos");
+    if (!menu) return;
 
-const menuGrupos = document.getElementById('menu-grupos');
-const contenedorGrupoActivo = document.getElementById('contenedor-grupo-activos');
-const btnCalcular = document.getElementById('btn-calcular');
-const txtPuntos = document.getElementById('puntos-totales');
-const txtMensaje = document.getElementById('mensaje-resultado');
-
-// 2. Crear los botones de navegación del Menú (Grupo A hasta L)
-function crearMenuNavegacion() {
     let htmlMenu = "";
-    partidosMundial.forEach((bloque, index) => {
-        // Sacamos solo la letra del grupo (ej: de "GRUPO A" obtenemos "A")
-        const letra = bloque.grupo.replace("GRUPO ", "");
-        const claseActiva = index === grupoActivoIndex ? "activo" : "";
-        htmlMenu += `<button class="btn-tab ${claseActiva}" onclick="cambiarDeGrupo(${index})">Grupo ${letra}</button>`;
-    });
-    menuGrupos.innerHTML = htmlMenu;
-}
-
-// 3. Guardar en memoria lo que el usuario escribió antes de cambiar de grupo
-function salvarProgresoActual() {
-    const bloqueActual = partidosMundial[grupoActivoIndex];
-    bloqueActual.partidos.forEach(partido => {
-        const inputL = document.getElementById(`local-${partido.id}`);
-        const inputV = document.getElementById(`visitante-${partido.id}`);
-        if(inputL && inputV) {
-            memoriaPronosticos[`local-${partido.id}`] = inputL.value;
-            memoriaPronosticos[`visitante-${partido.id}`] = inputV.value;
-        }
-    });
-}
-
-// 4. Cambiar el grupo visible en pantalla
-window.cambiarDeGrupo = function(index) {
-    salvarProgresoActual(); // Guardamos lo que haya escrito en el grupo viejo
-    grupoActivoIndex = index; // Actualizamos el índice activo
-    crearMenuNavegacion(); // Pintamos de nuevo el menú para actualizar el botón activo
-    renderizarGrupoActivo(); // Pintamos el nuevo grupo solitario
-}
-
-// 5. Dibujar SOLO el grupo seleccionado
-function renderizarGrupoActivo() {
-    const bloque = partidosMundial[grupoActivoIndex];
-    let html = `
-        <div class="bloque-grupo">
-            <div class="titulo-grupo">${bloque.grupo}</div>
-            
-            <div class="contenedor-tabla">
-                <table class="tabla-posiciones">
-                    <thead>
-                        <tr>
-                            <th>Pos</th>
-                            <th class="text-izq">Equipo</th>
-                            <th>PJ</th>
-                            <th>PG</th>
-                            <th>PE</th>
-                            <th>PP</th>
-                            <th>Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
     
-    bloque.clasificacion.forEach(fila => {
-        html += `
-            <tr>
-                <td>${fila.pos}</td>
-                <td class="text-izq">${fila.bandera} ${fila.equipo}</td>
-                <td>${fila.pj}</td>
-                <td>${fila.pg}</td>
-                <td>${fila.pe}</td>
-                <td>${fila.pp}</td>
-                <td><strong>${fila.pts}</strong></td>
-            </tr>`;
+    // Pestañas de la Fase 1
+    Object.keys(gruposMundial).forEach(grupo => {
+        const claseActiva = (vistaActual === "Fase 1" && grupo === grupoActivo) ? "activo" : "";
+        const letra = grupo.replace("Grupo ", "");
+        htmlMenu += `<button class="btn-tab ${claseActiva}" onclick="irAFase1('${grupo}')">Bloque ${letra}</button>`;
     });
 
-    html += `
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="subtitulo-partidos">Tu Pronóstico</div>`;
-    
-    bloque.partidos.forEach(partido => {
-        const pred = partido.prediccionComunidad;
-        // Revisamos si ya había escrito algo antes en este partido para dejarlo puesto
-        const valorL = memoriaPronosticos[`local-${partido.id}`] || "";
-        const valorV = memoriaPronosticos[`visitante-${partido.id}`] || "";
+    // Nueva pestaña para la Siguiente Fase
+    const claseFase2Activa = (vistaActual === "Fase 2") ? "activo" : "";
+    htmlMenu += `<button class="btn-tab ${claseFase2Activa}" onclick="irAFase2()" style="background-color: var(--color-neon-morado); color: white;">Fase 2 ➡️</button>`;
 
-        html += `
-            <div class="contenedor-prediccion">
+    menu.innerHTML = htmlMenu;
+}
+
+// Renderiza los partidos dependiendo de qué pestaña esté activa
+function cargarPartidos() {
+    const contenedor = document.getElementById("contenedor-partidos");
+    const titulo = document.getElementById("nombre-grupo-actual");
+    if (!contenedor) return;
+
+    contenedor.innerHTML = "";
+
+    if (vistaActual === "Fase 1") {
+        titulo.innerText = `Fase 1 - ${grupoActivo}`;
+        const partidos = gruposMundial[grupoActivo];
+
+        partidos.forEach(partido => {
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "contenedor-prediccion";
+            
+            let centroHTML = `<span class="vs">VS</span>`;
+            let alertaHTML = ``;
+            
+            if (partido.completado) {
+                centroHTML = `<div class="marcador-final-display"><span class="goles-finales">${partido.golesL} - ${partido.golesV}</span></div>`;
+                alertaHTML = `<div class="alerta-clasificacion">${partido.mensajeGuardado}</div>`;
+            }
+
+            tarjeta.innerHTML = `
                 <div class="tarjeta-partido">
-                    <div class="equipo">
+                    <button class="equipo-btn" onclick="simularResultadoFase1(${partido.id}, '${partido.local}')">
+                        <span class="bandera">${partido.banderaL}</span>
+                        <span class="nombre-equipo">${partido.local}</span>
+                    </button>
+                    <div class="marcador-input" id="marcador-p-${partido.id}">${centroHTML}</div>
+                    <button class="equipo-btn" onclick="simularResultadoFase1(${partido.id}, '${partido.visitante}')">
+                        <span class="nombre-equipo">${partido.visitante}</span>
+                        <span class="bandera">${partido.banderaV}</span>
+                    </button>
+                </div>
+                <div class="etiqueta-prediccion">Probabilidad de Victoria</div>
+                <div class="barra-probabilidades">
+                    <div class="progreso-local" style="width: ${partido.pctL}%"></div>
+                    <div class="progreso-empate" style="width: ${partido.pctE}%"></div>
+                    <div class="progreso-visitante" style="width: ${partido.pctV}%"></div>
+                </div>
+                <div class="numeros-porcentajes">
+                    <span class="pct-l">${partido.local}: ${partido.pctL}%</span>
+                    <span class="pct-e">Empate: ${partido.pctE}%</span>
+                    <span class="pct-v">${partido.visitante}: ${partido.pctV}%</span>
+                </div>
+                <div id="clasificacion-p-${partido.id}">${alertaHTML}</div>
+            `;
+            contenedor.appendChild(tarjeta);
+        });
+
+    } else if (vistaActual === "Fase 2") {
+        titulo.innerText = "Fase 2 - Dieciseisavos de Final";
+
+        partidosFase2.forEach(partido => {
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "contenedor-prediccion";
+            
+            tarjeta.innerHTML = `
+                <div class="tarjeta-partido">
+                    <div class="equipo" style="justify-content: flex-start; font-weight: 900;">
                         <span class="bandera">${partido.banderaL}</span>
                         <span class="nombre-equipo">${partido.local}</span>
                     </div>
-                    
                     <div class="marcador-input">
-                        <input type="number" id="local-${partido.id}" min="0" placeholder="0" value="${valorL}">
                         <span class="vs">VS</span>
-                        <input type="number" id="visitante-${partido.id}" min="0" placeholder="0" value="${valorV}">
                     </div>
-
-                    <div class="equipo">
+                    <div class="equipo" style="justify-content: flex-end; font-weight: 900;">
                         <span class="nombre-equipo">${partido.visitante}</span>
                         <span class="bandera">${partido.banderaV}</span>
                     </div>
                 </div>
-
-                <div class="seccion-porcentajes">
-                    <div class="etiqueta-prediccion">Predicción de la comunidad</div>
-                    <div class="barra-probabilidades">
-                        <div class="progreso-local" style="width: ${pred.local}%"></div>
-                        <div class="progreso-empate" style="width: ${pred.empate}%"></div>
-                        <div class="progreso-visitante" style="width: ${pred.visitante}%"></div>
-                    </div>
-                    <div class="numeros-porcentajes">
-                        <span class="pct-l">Gana ${partido.local}: ${pred.local}%</span>
-                        <span class="pct-e">Empate: ${pred.empate}%</span>
-                        <span class="pct-v">Gana ${partido.visitante}: ${pred.visitante}%</span>
-                    </div>
-                </div>
-            </div>`;
-    });
-
-    html += `</div>`;
-    // Forzamos la inyección al contenedor correcto
-    document.getElementById('contenedor-grupo-activo').innerHTML = html;
+                <div class="etiqueta-prediccion" style="text-align: center; color: var(--color-amarillo);">Partido de Eliminación Directa</div>
+            `;
+            contenedor.appendChild(tarjeta);
+        });
+    }
 }
 
-// Inicialización de la App
-crearMenuNavegacion();
-renderizarGrupoActivo();
+// Ejecuta la lógica fija al primer clic de la Fase 1 y clasifica al ganador a la Fase 2
+window.simularResultadoFase1 = function(partidoId, equipoSeleccionado) {
+    const partidos = gruposMundial[grupoActivo];
+    const partido = partidos.find(p => p.id === partidoId);
+    if (!partido || partido.completado) return;
 
-// 6. Botón de Cálculo de Puntos de TODOS los grupos guardados en memoria
-btnCalcular.addEventListener('click', () => {
-    salvarProgresoActual(); // Guardamos el grupo que está viendo actualmente
+    let golesGanador = Math.floor(Math.random() * 3) + 2; 
+    let golesPerdedor = Math.floor(Math.random() * golesGanador); 
 
-    let totalPuntos = 0;
-    let partidosContados = 0;
+    let golesLocal, golesVisitante, banderaGanador;
+    let textoResultadoHTML = "";
 
-    partidosMundial.forEach(bloque => {
-        bloque.partidos.forEach(partido => {
-            // Buscamos los datos almacenados en nuestra memoria
-            const valL = memoriaPronosticos[`local-${partido.id}`];
-            const valV = memoriaPronosticos[`visitante-${partido.id}`];
+    if (equipoSeleccionado === partido.local) {
+        golesLocal = golesGanador;
+        golesVisitante = golesPerdedor;
+        banderaGanador = partido.banderaL;
+        textoResultadoHTML = `
+            <p><span class="texto-resaltado-clasificado">🏆 GANADOR ${partido.local.toUpperCase()}</span> 
+            <span style="color: #ff3333; margin-left: 0.5rem;">❌ ELIMINADO ${partido.visitante.toUpperCase()}</span></p>
+        `;
+    } else {
+        golesLocal = golesPerdedor;
+        golesVisitante = golesGanador;
+        banderaGanador = partido.banderaV;
+        textoResultadoHTML = `
+            <p><span style="color: #ff3333;">❌ ELIMINADO ${partido.local.toUpperCase()}</span> 
+            <span class="texto-resaltado-clasificado" style="margin-left: 0.5rem;">🏆 GANADOR ${partido.visitante.toUpperCase()}</span></p>
+        `;
+    }
 
-            // Si el usuario no ha respondido este partido todavía, lo saltamos
-            if (valL === undefined || valV === undefined || valL === "" || valV === "") {
-                return; 
-            }
+    // Bloqueamos el partido de Fase 1
+    partido.completado = true;
+    partido.ganador = equipoSeleccionado;
+    partido.banderaG = banderaGanador;
+    partido.golesL = golesLocal;
+    partido.golesV = golesVisitante;
+    partido.mensajeGuardado = textoResultadoHTML;
 
-            const pronosticoLocal = parseInt(valL);
-            const pronosticoVisitante = parseInt(valV);
-            partidosContados++;
+    // ACTUALIZACIÓN DE LA FASE 2: Enviamos los datos al casillero correspondiente de Fase 2
+    actualizarCrucesFase2(partidoId, equipoSeleccionado, banderaGanador);
 
-            const gRealL = partido.golesLocalReal;
-            const gRealV = partido.golesVisitanteReal;
+    // Pintamos en tiempo real el resultado en la Fase 1
+    document.getElementById(`marcador-p-${partidoId}`).innerHTML = `
+        <div class="marcador-final-display"><span class="goles-finales">${golesLocal} - ${golesVisitante}</span></div>
+    `;
+    document.getElementById(`clasificacion-p-${partidoId}`).innerHTML = `
+        <div class="alerta-clasificacion">${textoResultadoHTML}</div>
+    `;
+}
 
-            if (pronosticoLocal === gRealL && pronosticoVisitante === gRealV) {
-                totalPuntos += 3;
-            } 
-            else if (
-                (pronosticoLocal > pronosticoVisitante && gRealL > gRealV) ||
-                (pronosticoLocal < pronosticoVisitante && gRealL < gRealV) ||
-                (pronosticoLocal === pronosticoVisitante && gRealL === gRealV)
-            ) {
-                totalPuntos += 1;
-            }
-        });
-    });
+// Función matemática/lógica para acomodar a los ganadores en los casilleros de la Fase 2
+function actualizarCrucesFase2(partidoIdF1, nombreGanador, banderaGanador) {
+    // Mapeo: Qué ID de partido de Fase 1 llena qué espacio en Fase 2
+    // Impares van al lado Local, Pares van al lado Visitante
+    const mapaCruces = {
+        1:  { campo: "local",     index: 0 }, // P1 (Gr. A) -> Local del Partido 1 en F2
+        3:  { campo: "visitante", index: 0 }, // P3 (Gr. B) -> Visitante del Partido 1 en F2
+        2:  { campo: "local",     index: 1 }, // P2 (Gr. A) -> Local del Partido 2 en F2
+        4:  { campo: "visitante", index: 1 }, // P4 (Gr. B) -> Visitante del Partido 2 en F2
+        5:  { campo: "local",     index: 2 }, // P5 (Gr. C) -> Local del Partido 3 en F2
+        7:  { campo: "visitante", index: 2 }, 
+        6:  { campo: "local",     index: 3 }, // P6 (Gr. C) -> Local del Partido 4 en F2
+        8:  { campo: "visitante", index: 3 },
+        9:  { campo: "local",     index: 4 }, // P9 (Gr. E) -> Local del Partido 5 en F2
+        11: { campo: "visitante", index: 4 },
+        10: { campo: "local",     index: 5 }, 
+        12: { campo: "visitante", index: 5 },
+        13: { campo: "local",     index: 6 }, 
+        15: { campo: "visitante", index: 6 },
+        14: { campo: "local",     index: 7 }, 
+        16: { campo: "visitante", index: 7 },
+        17: { campo: "local",     index: 8 }, 
+        19: { campo: "visitante", index: 8 },
+        18: { campo: "local",     index: 9 }, 
+        20: { campo: "visitante", index: 9 },
+        21: { campo: "local",     index: 10 }, 
+        23: { campo: "visitante", index: 10 },
+        22: { campo: "local",     index: 11 }, 
+        24: { campo: "visitante", index: 11 }
+    };
 
-    txtPuntos.textContent = totalPuntos;
-    txtMensaje.textContent = `Puntaje calculado en base a ${partidosContados} partidos completados a través de los grupos.`;
-});
+    const cruce = mapaCruces[partidoIdF1];
+    if (cruce) {
+        const partidoF2 = partidosFase2[cruce.index];
+        if (cruce.campo === "local") {
+            partidoF2.local = nombreGanador;
+            partidoF2.banderaL = banderaGanador;
+        } else {
+            partidoF2.visitante = nombreGanador;
+            partidoF2.banderaV = banderaGanador;
+        }
+    }
+}
+
+// Navegadores de estados de interfaz
+window.irAFase1 = function(grupo) {
+    vistaActual = "Fase 1";
+    grupoActivo = grupo;
+    crearMenuGrupos();
+    cargarPartidos();
+}
+
+window.irAFase2 = function() {
+    vistaActual = "Fase 2";
+    crearMenuGrupos();
+    cargarPartidos();
+}
+
+// Arranque inicial
+window.onload = function() {
+    crearMenuGrupos();
+    cargarPartidos();
+};

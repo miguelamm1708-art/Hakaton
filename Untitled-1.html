@@ -9,27 +9,33 @@
 <body>
 
     <header>
-        <h1>🏆 Nuestra Quiniela Mundialista</h1>
-        <p>Elige un grupo y haz tus predicciones</p>
+        <div class="contenedor-logo-toon">
+            <div class="barra-logo-superior"></div>
+            
+            <div class="bloque-logo-principal">
+                <div class="balon-fuego-toon">
+                    <div class="estela-fuego"></div>
+                    <div class="esfera-balon">⚽</div>
+                </div>
+                
+                <div class="textos-logo">
+                    <h1 class="marca-copatoon">COPA TOON</h1>
+                    <p class="subtitulo-copatoon">La Copa de los Ganadores</p>
+                </div>
+            </div>
+            
+            <div class="barra-logo-inferior"></div>
+        </div>
     </header>
 
     <main class="contenedor">
-        <!-- Menú de pestañas para cambiar de Grupo (JS meterá los botones aquí) -->
-        <nav id="menu-grupos" class="menu-navegacion"></nav>
-
-        <!-- Aquí JS meterá SOLAMENTE el grupo activo (Su tabla y sus partidos) -->
-        <section id="contenedor-grupo-activo"></section>
-        
-        <button id="btn-calcular" class="btn-principal">Guardar y Calcular Mis Puntos</button>
-
-        <!-- Sección de Resultados -->
-        <section class="seccion-resultados">
-            <h2>📊 Tu Puntuación Total</h2>
-            <div class="tablero-puntos">
-                <p>Puntos Totales: <span id="puntos-totales" class="puntos">0</span></p>
-                <p id="mensaje-resultado" class="mensaje">Selecciona los grupos, pon tus marcas y calcula tu puntuación.</p>
+        <div class="menu-navegacion" id="menu-navegacion-grupos">
             </div>
-        </section>
+
+        <h2 class="titulo-grupo" id="nombre-grupo-actual">Grupo A</h2>
+        
+        <div id="contenedor-partidos">
+            </div>
     </main>
 
     <script src="script.js"></script>

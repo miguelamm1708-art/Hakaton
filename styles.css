@@ -281,3 +281,194 @@ header p {
     font-weight: 700;
     color: var(--color-amarillo) !important;
 }
+
+/* ==========================================================================
+   🎯 LOGO ESTILO HUD (ESQUINA SUPERIOR IZQUIERDA Y COMPACTO)
+   ========================================================================== */
+
+header {
+    background: repeating-linear-gradient(
+        45deg,
+        #2a085c,
+        #2a085c 20px,
+        #3b1466 20px,
+        #3b1466 40px
+    );
+    padding: 1rem 2rem; /* Reducimos el padding vertical para que no ocupe tanto espacio arriba */
+    text-align: left;    /* Alinea todo el contenido a la izquierda */
+    border-bottom: var(--borde-negro);
+    box-shadow: 0 6px 0px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.contenedor-logo-toon {
+    display: inline-block;
+    max-width: 320px; /* Limitamos el ancho para que quede bien compacto */
+    transform: rotate(-1deg);
+}
+
+.bloque-logo-principal {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.8rem; /* Espaciado más ajustado */
+    margin: 0.4rem 0;
+}
+
+/* --- El Balón Compacto --- */
+.balon-fuego-toon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 55px; /* Ajustamos el contenedor del balón */
+}
+
+.esfera-balon {
+    font-size: 2.2rem; /* Balón más pequeño y visible */
+    background-color: var(--color-neon-morado);
+    border: 4px solid #000000;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #000000;
+    z-index: 2;
+    animation: vibracionToon 0.2s infinite alternate;
+}
+
+.estela-fuego {
+    position: absolute;
+    right: 20px;
+    width: 55px; /* Estela reducida proporcionalmente */
+    height: 32px;
+    background-color: var(--color-neon-morado);
+    border: 4px solid #000;
+    box-shadow: 3px 3px 0px #000;
+    clip-path: polygon(100% 50%, 40% 0%, 0% 15%, 20% 50%, 0% 85%, 40% 100%);
+    z-index: 1;
+    transform: rotate(15deg);
+}
+
+/* --- Textos Ajustados --- */
+.textos-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.marca-copatoon {
+    font-family: 'Rubik Mono One', sans-serif !important;
+    font-size: 2rem !important; /* Reducido de 3.5rem a 2rem para que sea discreto pero letal */
+    color: var(--color-amarillo) !important;
+    line-height: 0.95;
+    margin: 0 !important;
+    text-transform: uppercase;
+    text-shadow: 
+        2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+        4px 4px 0 var(--color-neon-morado), 5px 5px 0 #000 !important;
+    transform: skewX(-10deg) !important;
+}
+
+.subtitulo-copatoon {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 900;
+    font-size: 0.75rem !important; /* Micro-texto de interfaz de juego */
+    color: var(--color-blanco) !important;
+    text-shadow: 1.5px 1.5px 0px #000;
+    margin: 0.1rem 0 0 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transform: skewX(-10deg);
+    padding-left: 2px;
+}
+
+/* --- Barras Ajustadas --- */
+.barra-logo-superior, .barra-logo-inferior {
+    height: 7px; /* Más delgadas para no sobrecargar */
+    background-color: var(--color-neon-verde);
+    border: 3px solid #000000;
+    box-shadow: 2px 2px 0px #000;
+    transform: skewX(-20deg);
+}
+
+.barra-logo-superior {
+    width: 50%;
+    margin-left: auto;
+}
+
+.barra-logo-inferior {
+    width: 100%;
+}
+
+@keyframes vibracionToon {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(1px, -1px) scale(1.02); }
+}
+
+/* --- Ajustes de interactividad Toon --- */
+.equipo-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 42%;
+    background: none;
+    border: none;
+    color: var(--color-blanco);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.1s ease;
+}
+
+.equipo-btn:hover {
+    background-color: rgba(204, 0, 255, 0.2); /* Destello morado al pasar el mouse */
+}
+
+.equipo-btn:last-child { justify-content: flex-end; }
+
+/* Contenedor de Marcador Final simulado */
+.marcador-final-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.goles-finales {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1.8rem;
+    color: var(--color-neon-verde);
+    text-shadow: 2px 2px 0px #000;
+}
+
+/* Alerta de Clasificación estilo CN */
+.alerta-clasificacion {
+    margin-top: 1rem;
+    background-color: #000000;
+    border: 3px solid var(--color-neon-verde);
+    padding: 0.6rem;
+    text-align: center;
+    transform: rotate(-0.5deg);
+    animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.alerta-clasificacion p {
+    margin: 0;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.texto-resaltado-clasificado {
+    color: var(--color-amarillo);
+    font-family: 'Rubik Mono One', sans-serif;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8) rotate(0deg); opacity: 0; }
+    100% { transform: scale(1) rotate(-0.5deg); opacity: 1; }
+}
