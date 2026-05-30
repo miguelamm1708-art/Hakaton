@@ -3,39 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Quiniela del Mundial 2026 ⚽</title>
+    <title>Quiniela Mundial 48 Países</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <header>
-        <div class="contenedor-logo-toon">
-            <div class="barra-logo-superior"></div>
-            
-            <div class="bloque-logo-principal">
-                <div class="balon-fuego-toon">
-                    <div class="estela-fuego"></div>
-                    <div class="esfera-balon">⚽</div>
-                </div>
-                
-                <div class="textos-logo">
-                    <h1 class="marca-copatoon">COPA TOON</h1>
-                    <p class="subtitulo-copatoon">La Copa de los Ganadores</p>
-                </div>
-            </div>
-            
-            <div class="barra-logo-inferior"></div>
-        </div>
+        <h1>🏆 Mi Quiniela del Mundial 🏆</h1>
+        <p>Configura tus predicciones fase por fase</p>
     </header>
 
-    <main class="contenedor">
-        <div class="menu-navegacion" id="menu-navegacion-grupos">
-            </div>
-
-        <h2 class="titulo-grupo" id="nombre-grupo-actual">Grupo A</h2>
+    <main id="app-container">
         
-        <div id="contenedor-partidos">
+        <section id="phase-groups" class="phase active-phase">
+            <h2>Fase de Grupos (12 Grupos)</h2>
+            <p class="instruction">Selecciona exactamente 2 países por grupo para avanzar a la siguiente ronda.</p>
+            <div id="groups-container" class="grid-container"></div>
+            <div class="actions">
+                <button id="btn-to-octavos" class="btn">Avanzar a Octavos de Final ➡️</button>
             </div>
+        </section>
+
+        <section id="phase-octavos" class="phase">
+            <h2>Octavos de Final</h2>
+            <p class="instruction">Selecciona al ganador de cada enfrentamiento para avanzar a Cuartos.</p>
+            <div id="octavos-container" class="matchups-container"></div>
+            <div class="actions">
+                <button id="btn-to-cuartos" class="btn">Avanzar a Cuartos de Final ➡️</button>
+            </div>
+        </section>
+
+        <section id="phase-cuartos" class="phase">
+            <h2>Cuartos de Final</h2>
+            <p class="instruction">Selecciona al ganador de cada enfrentamiento para avanzar a Semifinales.</p>
+            <div id="cuartos-container" class="matchups-container"></div>
+            <div class="actions">
+                <button id="btn-to-semis" class="btn">Avanzar a Semifinales ➡️</button>
+            </div>
+        </section>
+
+        <section id="phase-semis" class="phase">
+            <h2>Semifinales</h2>
+            <p class="instruction">Selecciona a los dos países que irán a la Gran Final.</p>
+            <div id="semis-container" class="matchups-container"></div>
+            <div class="actions">
+                <button id="btn-to-final" class="btn">Avanzar a la Final ➡️</button>
+            </div>
+        </section>
+
+        <section id="phase-final" class="phase">
+            <h2>🏆 Gran Final 🏆</h2>
+            <p class="instruction">¡Selecciona al Campeón del Mundo!</p>
+            <div id="final-container" class="matchups-container"></div>
+            <div class="actions">
+                <button id="btn-finish" class="btn success">Finalizar Quiniela 🎉</button>
+            </div>
+        </section>
+
+        <section id="phase-summary" class="phase">
+            <h2>¡Quiniela Completada!</h2>
+            <div id="summary-content"></div>
+            <div class="actions">
+                <button onclick="window.location.reload()" class="btn">Reiniciar Quiniela 🔄</button>
+            </div>
+        </section>
+
     </main>
 
     <script src="script.js"></script>

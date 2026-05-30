@@ -1,474 +1,529 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@700;900&display=swap');
-
 :root {
-    --color-fondo-pro: #1e0b36;      /* Morado muy oscuro de fondo */
-    --color-tarjeta: #3b1466;        /* Morado Copa Toon para bloques */
-    --color-neon-verde: #00ff66;     /* Verde neón súper brillante */
-    --color-neon-morado: #cc00ff;    /* Morado neón para acentos */
-    --color-amarillo: #fff500;       /* Amarillo de advertencia/destaque */
-    --color-blanco: #ffffff;
-    --borde-negro: 4px solid #000000;/* El mítico borde grueso de CN */
-    --sombra-cartoon: 5px 5px 0px #000000; /* Sombra sólida sin difuminar */
+    --primary-color: #102a43;
+    --secondary-color: #627d98;
+    --accent-color: #048243;
+    --accent-selected: #243b53;
+    --background-color: #f0f4f8;
+    --card-background: #ffffff;
+    --text-color: #102a43;
 }
 
 body {
-    font-family: 'Rubik', sans-serif;
-    background-color: var(--color-fondo-pro);
-    background-image: radial-gradient(var(--color-tarjeta) 20%, transparent 20%); /* Fondo con puntos sutiles tipo cómic */
-    background-size: 20px 20px;
-    color: var(--color-blanco);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
 }
 
-/* --- ENCABEZADO COPA TOON --- */
 header {
-    background: repeating-linear-gradient(
-        45deg,
-        #2a085c,
-        #2a085c 20px,
-        #3b1466 20px,
-        #3b1466 40px
-    ); /* Líneas de fondo estilo canal de TV */
-    padding: 2.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
     text-align: center;
-    border-bottom: var(--borde-negro);
-    box-shadow: 0 8px 0px rgba(0,0,0,0.3);
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-header h1 {
-    font-family: 'Rubik Mono One', sans-serif;
-    font-size: 2.8rem;
-    color: var(--color-amarillo);
-    text-transform: uppercase;
-    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 6px 8px 0px var(--color-neon-morado);
-    margin: 0;
-    transform: skewX(-5deg) rotate(-1deg); /* Inclinación de acción */
-}
-
-header p {
-    font-weight: 900;
-    font-size: 1.1rem;
-    color: var(--color-neon-verde);
-    text-transform: uppercase;
-    margin-top: 0.5rem;
-    letter-spacing: 2px;
-}
-
-.contenedor {
-    max-width: 650px;
+#app-container {
+    max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* --- MENÚ DE GRUPOS (BOTONES) --- */
-.menu-navegacion {
-    display: flex;
-    gap: 0.6rem;
-    overflow-x: auto;
-    padding: 0.5rem 0;
+/* Control del Sistema de Fases (Ocultar/Mostrar) */
+.phase {
+    display: none; /* Oculto por defecto */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.phase.active-phase {
+    display: block; /* Solo se muestra la fase activa */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.instruction {
+    font-style: italic;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Grid de Grupos */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
-.btn-tab {
-    background-color: var(--color-tarjeta);
-    color: var(--color-blanco);
-    font-family: 'Rubik', sans-serif;
-    font-weight: 900;
-    text-transform: uppercase;
-    border: var(--borde-negro);
-    padding: 0.6rem 1.2rem;
-    border-radius: 0px; /* Cuadrados al estilo retro */
+.group-card {
+    background: var(--card-background);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--primary-color);
+}
+
+.group-card h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+/* Lista de Países */
+.team-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
     cursor: pointer;
-    transform: skewX(-10deg); /* Botón inclinado */
-    box-shadow: 3px 3px 0px #000;
-    transition: all 0.1s ease;
+    transition: all 0.2s;
 }
 
-.btn-tab:hover {
-    background-color: var(--color-neon-morado);
-    color: var(--color-blanco);
+.team-item:hover {
+    background-color: #f7fafc;
 }
 
-.btn-tab.activo {
-    background-color: var(--color-neon-verde);
-    color: #000000;
-    box-shadow: 1px 1px 0px #000;
-    transform: skewX(-10deg) translate(2px, 2px);
+.team-item.selected {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
 }
 
-/* --- SECCIÓN DE LA TABLA --- */
-.titulo-grupo {
-    font-family: 'Rubik Mono One', sans-serif;
-    background-color: var(--color-neon-morado);
-    color: var(--color-blanco);
-    padding: 0.8rem 1.2rem;
-    border: var(--borde-negro);
-    font-size: 1.4rem;
-    text-shadow: 2px 2px 0px #000;
-    transform: rotate(-1deg);
-    margin-bottom: -4px; /* Lo pega a la tabla */
-    display: inline-block;
+/* Contenedor de Llaves / Enfrentamientos */
+.matchups-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto 2rem auto;
 }
 
-.tabla-posiciones {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: var(--color-tarjeta);
-    border: var(--borde-negro);
-    box-shadow: var(--sombra-cartoon);
-    font-weight: 900;
+.matchup {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.tabla-posiciones th {
-    background-color: #000000;
-    color: var(--color-neon-verde);
-    padding: 0.8rem;
-    text-transform: uppercase;
+/* Botones de acción */
+.actions {
+    text-align: center;
+    margin-top: 2rem;
 }
 
-.tabla-posiciones td {
-    padding: 0.8rem;
-    border-bottom: var(--borde-negro);
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-/* --- TARJETAS DE PARTIDO COPA TOON --- */
-.subtitulo-partidos {
-    font-family: 'Rubik Mono One', sans-serif;
-    font-size: 1.1rem;
-    color: var(--color-amarillo);
-    margin: 2.5rem 0 1rem 0;
-    text-shadow: 2px 2px 0px #000;
+.btn:hover {
+    background-color: var(--accent-selected);
 }
 
-.contenedor-prediccion {
-    background-color: var(--color-tarjeta);
-    border: var(--borde-negro);
-    border-radius: 0px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--sombra-cartoon);
+.btn.success {
+    background-color: #2f855a;
 }
 
-.contenedor-prediccion .tarjeta-partido {
+/* --- ESTILOS DEL BRACKET / CUADRO VISUAL DE LA FINAL --- */
+.bracket-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1rem;
-    border-bottom: 3px dashed #000000;
-}
-
-.equipo {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    width: 38%;
-}
-
-.equipo:last-child { justify-content: flex-end; }
-.bandera { font-size: 2.2rem; filter: drop-shadow(2px 2px 0px #000); }
-.nombre-equipo { font-weight: 900; font-size: 1.1rem; text-transform: uppercase; }
-
-/* Marcadores (Inputs Toon) */
-.marcador-input { display: flex; align-items: center; gap: 0.5rem; }
-.marcador-input input {
-    width: 50px;
-    height: 45px;
-    font-family: 'Rubik Mono One', sans-serif;
-    font-size: 1.5rem;
-    text-align: center;
-    background-color: #000000;
-    color: var(--color-neon-verde);
-    border: 3px solid var(--color-neon-morado);
-    outline: none;
-}
-.marcador-input input:focus {
-    border-color: var(--color-amarillo);
-}
-.vs {
-    font-family: 'Rubik Mono One', sans-serif;
-    color: var(--color-amarillo);
-    font-size: 1rem;
-    text-shadow: 2px 2px 0px #000;
-}
-
-/* --- BARRAS DE PORCENTAJE (ESTILO BRAWL / COPA TOON) --- */
-.etiqueta-prediccion { 
-    font-weight: 900; 
-    font-size: 0.8rem; 
-    color: #bca0dc; 
-    text-transform: uppercase; 
-    margin: 0.8rem 0 0.4rem 0;
-}
-
-.barra-probabilidades { 
-    height: 16px; 
-    display: flex; 
-    border: var(--borde-negro); 
-    background-color: #000000; 
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-}
-.progreso-local { background-color: var(--color-neon-verde); }
-.progreso-empate { background-color: #7b7b7b; }
-.progreso-visitante { background-color: var(--color-neon-morado); }
-
-.numeros-porcentajes { 
-    display: flex; 
-    justify-content: space-between; 
-    font-size: 0.8rem; 
-    font-weight: 900; 
-    margin-top: 0.3rem;
-    text-transform: uppercase;
-}
-.pct-l { color: var(--color-neon-verde); }
-.pct-e { color: #a5a5a5; }
-.pct-v { color: #e666ff; }
-
-/* --- BOTÓN PRINCIPAL DE DISPARO --- */
-.btn-principal {
-    font-family: 'Rubik Mono One', sans-serif;
-    background-color: var(--color-neon-verde);
-    color: #000000;
-    border: var(--borde-negro);
-    padding: 1.2rem;
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 2rem;
-    box-shadow: var(--sombra-cartoon);
-    transform: rotate(0.5deg);
-    transition: transform 0.1s;
-}
-
-.btn-principal:hover {
-    background-color: var(--color-amarillo);
-    transform: scale(1.02) rotate(-0.5deg);
-}
-
-.btn-principal:active {
-    transform: translate(3px, 3px);
-    box-shadow: 2px 2px 0px #000;
-}
-
-/* --- TABLERO DE PUNTOS COMIC --- */
-.tablero-puntos {
-    background-color: #000000;
-    border: 4px solid var(--color-neon-morado);
+    align-items: stretch;
+    background: #f8fafc;
     padding: 2rem;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+    overflow-x: auto; /* Por si la pantalla es pequeña, permite scroll horizontal */
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.bracket-round {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 1;
+    min-width: 160px;
+}
+
+.bracket-round h3 {
+    font-size: 0.9rem;
     text-align: center;
-    box-shadow: var(--sombra-cartoon);
-    margin-top: 2rem;
-    transform: rotate(-0.5deg);
-}
-
-.tablero-puntos p {
-    font-weight: 900;
+    color: var(--secondary-color);
     text-transform: uppercase;
-    margin: 0;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.25rem;
 }
 
-.puntos {
-    font-family: 'Rubik Mono One', sans-serif;
-    font-size: 4rem;
-    color: var(--color-neon-verde);
-    display: block;
-    text-shadow: 4px 4px 0px var(--color-tarjeta);
-    margin: 0.5rem 0;
+.bracket-match {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    overflow: hidden;
 }
 
-.mensaje {
+.bracket-team {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: 1px solid #f1f5f9;
+    color: #475569;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.bracket-team:last-child {
+    border-bottom: none;
+}
+
+/* Resaltados especiales para ganadores y fases avanzadas */
+.selected-final {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+}
+
+.winner-branch {
+    background-color: #e6fffa;
+    color: #048243;
+    font-weight: bold;
+}
+
+.final-match-team {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.8rem;
+}
+
+/* Caja del campeón destacado al centro/final */
+.central-final {
+    justify-content: center;
+    gap: 2rem;
+    background: #fffbeb;
+    border: 2px dashed #fef3c7;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.champion-box {
+    text-align: center;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 8px;
+    padding: 1rem 0.5rem;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
+    animation: pulse 2s infinite;
+}
+
+.champion-box .crown {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.champion-box .champion-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #78350f;
+}
+
+.champion-box small {
+    font-weight: 800;
+    color: #b45309;
+    letter-spacing: 1.5px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* --- ESTILOS DEL CONTENEDOR BRACKET MUNDIAL SIMÉTRICO --- */
+.world-cup-bracket {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    background: #edf2f7;
+    padding: 2.5rem 1.5rem;
+    border-radius: 16px;
+    box-shadow: inset 0 4px 12px rgba(0,0,0,0.06);
+    gap: 1rem;
+    overflow-x: auto;
+}
+
+/* Lados izquierdo y derecho */
+.bracket-side {
+    display: flex;
+    flex: 2;
+    gap: 1.5rem;
+}
+.bracket-side.reverse-side {
+    flex-direction: row-reverse; /* Invierte el orden en el lado derecho */
+}
+
+/* Columnas de fases individuales */
+.bracket-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 1;
+    min-width: 140px;
+}
+.justify-center-gap {
+    justify-content: center;
+    gap: 6rem; /* Separa los dos partidos de cuartos de final */
+}
+
+.column-title {
+    font-size: 0.8rem;
     font-weight: 700;
-    color: var(--color-amarillo) !important;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 0.25rem;
 }
 
-/* ==========================================================================
-   🎯 LOGO ESTILO HUD (ESQUINA SUPERIOR IZQUIERDA Y COMPACTO)
-   ========================================================================== */
-
-header {
-    background: repeating-linear-gradient(
-        45deg,
-        #2a085c,
-        #2a085c 20px,
-        #3b1466 20px,
-        #3b1466 40px
-    );
-    padding: 1rem 2rem; /* Reducimos el padding vertical para que no ocupe tanto espacio arriba */
-    text-align: left;    /* Alinea todo el contenido a la izquierda */
-    border-bottom: var(--borde-negro);
-    box-shadow: 0 6px 0px rgba(0,0,0,0.3);
+/* Cajas de Encuentros */
+.bracket-match {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column;
 }
 
-.contenedor-logo-toon {
-    display: inline-block;
-    max-width: 320px; /* Limitamos el ancho para que quede bien compacto */
-    transform: rotate(-1deg);
+.bracket-team {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    border-bottom: 1px solid #edf2f7;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.bracket-team:last-child {
+    border-bottom: none;
 }
 
-.bloque-logo-principal {
+/* Estados de colores */
+.selected-final {
+    background-color: #f7fafc;
+}
+.winner-branch {
+    background-color: #e6fffa;
+    color: #234e52;
+    border-left: 4px solid var(--accent-color);
+    font-weight: 700;
+}
+
+/* ================= ZONA CENTRAL DEL TORNEO ================= */
+.bracket-center-zone {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start;
-    gap: 0.8rem; /* Espaciado más ajustado */
-    margin: 0.4rem 0;
+    flex: 3;
+    min-width: 280px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border: 1px dashed #cbd5e1;
 }
 
-/* --- El Balón Compacto --- */
-.balon-fuego-toon {
-    position: relative;
+/* Semifinales en fila arriba */
+.semis-row {
     display: flex;
-    align-items: center;
-    width: 55px; /* Ajustamos el contenedor del balón */
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+.semi-box {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+}
+.semi-box small {
+    display: block;
+    background: #edf2f7;
+    color: #718096;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.2rem 0;
 }
 
-.esfera-balon {
-    font-size: 2.2rem; /* Balón más pequeño y visible */
-    background-color: var(--color-neon-morado);
-    border: 4px solid #000000;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
+/* Bloque central de la final */
+.final-match-box {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 1.5rem 0;
+}
+.final-match-box h3 {
+    margin: 0 0 0.75rem 0;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    color: #e2e8f0;
+}
+.final-teams {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 3px 3px 0px #000000;
-    z-index: 2;
-    animation: vibracionToon 0.2s infinite alternate;
+    gap: 0.75rem;
 }
-
-.estela-fuego {
-    position: absolute;
-    right: 20px;
-    width: 55px; /* Estela reducida proporcionalmente */
-    height: 32px;
-    background-color: var(--color-neon-morado);
-    border: 4px solid #000;
-    box-shadow: 3px 3px 0px #000;
-    clip-path: polygon(100% 50%, 40% 0%, 0% 15%, 20% 50%, 0% 85%, 40% 100%);
-    z-index: 1;
-    transform: rotate(15deg);
+.final-team-card {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    flex: 1;
+    font-size: 0.95rem;
 }
-
-/* --- Textos Ajustados --- */
-.textos-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.marca-copatoon {
-    font-family: 'Rubik Mono One', sans-serif !important;
-    font-size: 2rem !important; /* Reducido de 3.5rem a 2rem para que sea discreto pero letal */
-    color: var(--color-amarillo) !important;
-    line-height: 0.95;
-    margin: 0 !important;
-    text-transform: uppercase;
-    text-shadow: 
-        2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
-        4px 4px 0 var(--color-neon-morado), 5px 5px 0 #000 !important;
-    transform: skewX(-10deg) !important;
-}
-
-.subtitulo-copatoon {
-    font-family: 'Rubik', sans-serif;
+.vs-circle {
+    background: #e2e8f0;
+    color: var(--primary-color);
+    font-size: 0.75rem;
     font-weight: 900;
-    font-size: 0.75rem !important; /* Micro-texto de interfaz de juego */
-    color: var(--color-blanco) !important;
-    text-shadow: 1.5px 1.5px 0px #000;
-    margin: 0.1rem 0 0 0 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transform: skewX(-10deg);
-    padding-left: 2px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
-/* --- Barras Ajustadas --- */
-.barra-logo-superior, .barra-logo-inferior {
-    height: 7px; /* Más delgadas para no sobrecargar */
-    background-color: var(--color-neon-verde);
-    border: 3px solid #000000;
-    box-shadow: 2px 2px 0px #000;
-    transform: skewX(-20deg);
-}
-
-.barra-logo-superior {
-    width: 50%;
-    margin-left: auto;
-}
-
-.barra-logo-inferior {
+/* Podio del Campeón destacado */
+.champion-podium {
+    text-align: center;
+    margin-bottom: 1.5rem;
     width: 100%;
 }
-
-@keyframes vibracionToon {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(1px, -1px) scale(1.02); }
+.crown-animation {
+    font-size: 2.5rem;
+    margin-bottom: -5px;
+    animation: bounce 2s infinite;
 }
-
-/* --- Ajustes de interactividad Toon --- */
-.equipo-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    width: 42%;
-    background: none;
-    border: none;
-    color: var(--color-blanco);
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background 0.1s ease;
+.podium-banner {
+    background: linear-gradient(135deg, #ecc94b 0%, #d69e2e 100%);
+    border: 2px solid #b7791f;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(214, 158, 46, 0.4);
 }
-
-.equipo-btn:hover {
-    background-color: rgba(204, 0, 255, 0.2); /* Destello morado al pasar el mouse */
-}
-
-.equipo-btn:last-child { justify-content: flex-end; }
-
-/* Contenedor de Marcador Final simulado */
-.marcador-final-display {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.goles-finales {
-    font-family: 'Rubik Mono One', sans-serif;
-    font-size: 1.8rem;
-    color: var(--color-neon-verde);
-    text-shadow: 2px 2px 0px #000;
-}
-
-/* Alerta de Clasificación estilo CN */
-.alerta-clasificacion {
-    margin-top: 1rem;
-    background-color: #000000;
-    border: 3px solid var(--color-neon-verde);
-    padding: 0.6rem;
-    text-align: center;
-    transform: rotate(-0.5deg);
-    animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.alerta-clasificacion p {
-    margin: 0;
+.champion-title {
+    display: block;
+    font-size: 0.75rem;
     font-weight: 900;
-    text-transform: uppercase;
-    font-size: 0.85rem;
+    color: #744210;
+    letter-spacing: 2px;
+}
+.champion-name-display {
+    margin: 0.25rem 0 0 0;
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.texto-resaltado-clasificado {
-    color: var(--color-amarillo);
-    font-family: 'Rubik Mono One', sans-serif;
+/* Animaciones */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
 }
 
-@keyframes popIn {
-    0% { transform: scale(0.8) rotate(0deg); opacity: 0; }
-    100% { transform: scale(1) rotate(-0.5deg); opacity: 1; }
+/* ================= REGLAS DE OPTIMIZACIÓN DE IMPRESIÓN (PDF) ================= */
+@media print {
+    /* Ocultar todo el sitio web excepto la zona del resumen final */
+    body * {
+        visibility: hidden;
+    }
+    
+    #phase-summary, #phase-summary * {
+        visibility: visible;
+    }
+    
+    /* Posicionar el área del resumen para que ocupe de manera óptima la hoja */
+    #phase-summary {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Ocultar botones interactivos dentro del PDF generado */
+    .summary-actions-top, 
+    #phase-summary .actions,
+    header {
+        display: none !important;
+    }
+
+    /* Forzar que se mantengan los colores de fondo e iluminaciones en la exportación */
+    .world-cup-bracket {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: #edf2f7 !important;
+        border: 1px solid #cbd5e1 !important;
+    }
+
+    .winner-branch {
+        background-color: #e6fffa !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .podium-banner {
+        background: linear-gradient(135deg, #ecc94b 0%, #d69e2e 100%) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .final-match-box {
+        background-color: #102a43 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Configuración del tamaño de página horizontal */
+    @page {
+        size: A4 landscape;
+        margin: 10mm;
+    }
 }

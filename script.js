@@ -1,285 +1,376 @@
-// 1. Estructura de la Fase 1: 48 países en 12 grupos (2 partidos por grupo)
-const gruposMundial = {
-    "Grupo A": [
-        { id: 1, local: "México", banderaL: "🇲🇽", pctL: 50, visitante: "Argentina", banderaV: "🇦🇷", pctV: 30, pctE: 20, completado: false, ganador: null, banderaG: "" },
-        { id: 2, local: "Estados Unidos", banderaL: "🇺🇸", pctL: 45, visitante: "Canadá", banderaV: "🇨🇦", pctV: 35, pctE: 20, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo B": [
-        { id: 3, local: "Francia", banderaL: "🇫🇷", pctL: 60, visitante: "Polonia", banderaV: "🇵🇱", pctV: 20, pctE: 20, completado: false, ganador: null, banderaG: "" },
-        { id: 4, local: "Ecuador", banderaL: "🇪🇨", pctL: 40, visitante: "Austria", banderaV: "🇦🇹", pctV: 40, pctE: 20, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo C": [
-        { id: 5, local: "España", banderaL: "🇪🇸", pctL: 55, visitante: "Túnez", banderaV: "🇹🇳", pctV: 20, pctE: 25, completado: false, ganador: null, banderaG: "" },
-        { id: 6, local: "Colombia", banderaL: "🇨🇴", pctL: 50, visitante: "Corea del Sur", banderaV: "🇰🇷", pctV: 30, pctE: 20, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo D": [
-        { id: 7, local: "Inglaterra", banderaL: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", pctL: 65, visitante: "Irán", banderaV: "🇮🇷", pctV: 15, pctE: 20, completado: false, ganador: null, banderaG: "" },
-        { id: 8, local: "Senegal", banderaL: "🇸🇳", pctL: 45, visitante: "Rumania", banderaV: "🇷🇴", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo E": [
-        { id: 9, local: "Bélgica", banderaL: "🇧🇪", pctL: 50, visitante: "Egipto", banderaV: "🇪🇬", pctV: 25, pctE: 25, completado: false, ganador: null, banderaG: "" },
-        { id: 10, local: "Perú", banderaL: "🇵🇪", pctL: 40, visitante: "Nigeria", banderaV: "🇳🇬", pctV: 40, pctE: 20, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo F": [
-        { id: 11, local: "Alemania", banderaL: "🇩🇪", pctL: 55, visitante: "Japón", banderaV: "🇯🇵", pctV: 30, pctE: 15, completado: false, ganador: null, banderaG: "" },
-        { id: 12, local: "Marruecos", banderaL: "🇲🇦", pctL: 45, visitante: "Escocia", banderaV: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo G": [
-        { id: 13, local: "Croacia", banderaL: "🇭🇷", pctL: 50, visitante: "Brasil", banderaV: "🇧🇷", pctV: 35, pctE: 15, completado: false, ganador: null, banderaG: "" },
-        { id: 14, local: "Uruguay", banderaL: "🇺🇾", pctL: 55, visitante: "Fiyi", banderaV: "🇫🇯", pctV: 15, pctE: 30, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo H": [
-        { id: 15, local: "Portugal", banderaL: "🇵🇹", pctL: 60, visitante: "Ghana", banderaV: "🇬🇭", pctV: 20, pctE: 20, completado: false, ganador: null, banderaG: "" },
-        { id: 16, local: "Chile", banderaL: "🇨🇱", pctL: 45, visitante: "Turquía", banderaV: "🇹🇷", pctV: 35, pctE: 20, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo I": [
-        { id: 17, local: "Países Bajos", banderaL: "🇳🇱", pctL: 55, visitante: "Ucrania", banderaV: "🇺🇦", pctV: 25, pctE: 20, completado: false, ganador: null, banderaG: "" },
-        { id: 18, local: "Argelia", banderaL: "🇩🇿", pctL: 35, visitante: "Panamá", banderaV: "🇵🇦", pctV: 40, pctE: 25, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo J": [
-        { id: 19, local: "Italia", banderaL: "🇮🇹", pctL: 50, visitante: "Suiza", banderaV: "🇨🇭", pctV: 30, pctE: 20, completado: false, ganador: null, banderaG: "" },
-        { id: 20, local: "Paraguay", banderaL: "🇵🇾", pctL: 45, visitante: "Catar", banderaV: "🇶🇦", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo K": [
-        { id: 21, local: "Dinamarca", banderaL: "🇩🇰", pctL: 50, visitante: "Venezuela", banderaV: "🇻🇪", pctV: 35, pctE: 15, completado: false, ganador: null, banderaG: "" },
-        { id: 22, local: "Camerún", banderaL: "🇨🇲", pctL: 40, visitante: "Australia", banderaV: "🇦🇺", pctV: 35, pctE: 25, completado: false, ganador: null, banderaG: "" }
-    ],
-    "Grupo L": [
-        { id: 23, local: "Suecia", banderaL: "🇸🇪", pctL: 45, visitante: "Honduras", banderaV: "🇭🇳", pctV: 30, pctE: 25, completado: false, ganador: null, banderaG: "" },
-        { id: 24, local: "Jamaica", banderaL: "🇯🇲", pctL: 40, visitante: "Costa Rica", banderaV: "🇨🇷", pctV: 40, pctE: 20, completado: false, ganador: null, banderaG: "" }
-    ]
-};
-
-// 2. Estructura de la Fase 2 (Dieciseisavos). Se emparejarán los ganadores de los grupos correlativos
-const partidosFase2 = [
-    { id: "F2-1", local: "Ganador P1 (Gr. A)", banderaL: "❓", visitante: "Ganador P3 (Gr. B)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-2", local: "Ganador P2 (Gr. A)", banderaL: "❓", visitante: "Ganador P4 (Gr. B)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-3", local: "Ganador P5 (Gr. C)", banderaL: "❓", visitante: "Ganador P7 (Gr. D)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-4", local: "Ganador P6 (Gr. C)", banderaL: "❓", visitante: "Ganador P8 (Gr. D)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-5", local: "Ganador P9 (Gr. E)", banderaL: "❓", visitante: "Ganador P11 (Gr. F)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-6", local: "Ganador P10 (Gr. E)", banderaL: "❓", visitante: "Ganador P12 (Gr. F)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-7", local: "Ganador P13 (Gr. G)", banderaL: "❓", visitante: "Ganador P15 (Gr. H)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-8", local: "Ganador P14 (Gr. G)", banderaL: "❓", visitante: "Ganador P16 (Gr. H)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-9", local: "Ganador P17 (Gr. I)", banderaL: "❓", visitante: "Ganador P19 (Gr. J)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-10", local: "Ganador P18 (Gr. I)", banderaL: "❓", visitante: "Ganador P20 (Gr. J)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-11", local: "Ganador P21 (Gr. K)", banderaL: "❓", visitante: "Ganador P23 (Gr. L)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false },
-    { id: "F2-12", local: "Ganador P22 (Gr. K)", banderaL: "❓", visitante: "Ganador P24 (Gr. L)", banderaV: "❓", pctL: 50, pctV: 50, pctE: 0, completado: false }
+// Base de datos de los 48 países ficticios/reales para el ejemplo estructurados en 12 grupos (A-L)
+const alphabet = "ABCDEFGHIJKL".split("");
+const baseCountries = [
+    "Argentina", "Arabia Saudita", "Argelia", "Australia",
+    "Brasil", "Bélgica", "Bolivia", "Baréin",
+    "Colombia", "Costa Rica", "Croacia", "Camerún",
+    "Dinamarca", "Chile", "Canadá", "Corea del Sur",
+    "Ecuador", "España", "Egipto", "EE. UU.",
+    "Francia", "Fiyi", "Finlandia", "Filipinas",
+    "Alematrix", "Ghana", "Grecia", "Guatemala",
+    "Países Bajos", "Honduras", "Hungría", "Haití",
+    "Italia", "Irán", "Irlanda", "Irak",
+    "Japón", "Jamaica", "Jordania", "china",
+    "Marruecos", "México", "Mali", "Montenegro",
+    "Uruguay", "Portugal", "Perú", "Panamá"
 ];
 
-let vistaActual = "Fase 1"; // Puede ser "Fase 1" o "Fase 2"
-let grupoActivo = "Grupo A";
+// Organizar países en 12 grupos de 4 de manera alfabética
+let groups = {};
+alphabet.forEach((letter, index) => {
+    groups[letter] = baseCountries.slice(index * 4, (index * 4) + 4);
+});
 
-// Genera la barra superior con las pestañas de Fase 1 (A-L) más el botón de la Fase 2
-function crearMenuGrupos() {
-    const menu = document.getElementById("menu-navegacion-grupos");
-    if (!menu) return;
+// Estado de la aplicación para guardar las selecciones del usuario
+let userSelections = {
+    groups: {},           // Guardará { 'A': ['País1', 'País2'], 'B': [...] }
+    octavosWinners: [],   // Ganadores de Octavos
+    cuartosWinners: [],   // Ganadores de Cuartos
+    semisWinners: [],     // Ganadores de Semifinales (Finalistas)
+    champion: ""          // Campeón definitivo
+};
 
-    let htmlMenu = "";
-    
-    // Pestañas de la Fase 1
-    Object.keys(gruposMundial).forEach(grupo => {
-        const claseActiva = (vistaActual === "Fase 1" && grupo === grupoActivo) ? "activo" : "";
-        const letra = grupo.replace("Grupo ", "");
-        htmlMenu += `<button class="btn-tab ${claseActiva}" onclick="irAFase1('${grupo}')">Bloque ${letra}</button>`;
-    });
+// Al cargar el documento se arranca la primera fase
+document.addEventListener("DOMContentLoaded", () => {
+    renderGroups();
+    setupEventListeners();
+});
 
-    // Nueva pestaña para la Siguiente Fase
-    const claseFase2Activa = (vistaActual === "Fase 2") ? "activo" : "";
-    htmlMenu += `<button class="btn-tab ${claseFase2Activa}" onclick="irAFase2()" style="background-color: var(--color-neon-morado); color: white;">Fase 2 ➡️</button>`;
+// --- RENDERIZADO FASE DE GRUPOS ---
+function renderGroups() {
+    const container = document.getElementById("groups-container");
+    container.innerHTML = "";
 
-    menu.innerHTML = htmlMenu;
-}
+    for (const [letter, teams] of Object.entries(groups)) {
+        userSelections.groups[letter] = []; // Inicializar array de seleccionados
 
-// Renderiza los partidos dependiendo de qué pestaña esté activa
-function cargarPartidos() {
-    const contenedor = document.getElementById("contenedor-partidos");
-    const titulo = document.getElementById("nombre-grupo-actual");
-    if (!contenedor) return;
+        const groupCard = document.createElement("div");
+        groupCard.className = "group-card";
+        groupCard.innerHTML = `<h3>Grupo ${letter}</h3>`;
 
-    contenedor.innerHTML = "";
-
-    if (vistaActual === "Fase 1") {
-        titulo.innerText = `Fase 1 - ${grupoActivo}`;
-        const partidos = gruposMundial[grupoActivo];
-
-        partidos.forEach(partido => {
-            const tarjeta = document.createElement("div");
-            tarjeta.className = "contenedor-prediccion";
+        teams.forEach(team => {
+            const teamItem = document.createElement("div");
+            teamItem.className = "team-item";
+            teamItem.innerHTML = `<span>${team}</span> <span class="badge">⭕</span>`;
             
-            let centroHTML = `<span class="vs">VS</span>`;
-            let alertaHTML = ``;
-            
-            if (partido.completado) {
-                centroHTML = `<div class="marcador-final-display"><span class="goles-finales">${partido.golesL} - ${partido.golesV}</span></div>`;
-                alertaHTML = `<div class="alerta-clasificacion">${partido.mensajeGuardado}</div>`;
-            }
+            teamItem.addEventListener("click", () => {
+                toggleGroupSelection(letter, team, teamItem);
+            });
 
-            tarjeta.innerHTML = `
-                <div class="tarjeta-partido">
-                    <button class="equipo-btn" onclick="simularResultadoFase1(${partido.id}, '${partido.local}')">
-                        <span class="bandera">${partido.banderaL}</span>
-                        <span class="nombre-equipo">${partido.local}</span>
-                    </button>
-                    <div class="marcador-input" id="marcador-p-${partido.id}">${centroHTML}</div>
-                    <button class="equipo-btn" onclick="simularResultadoFase1(${partido.id}, '${partido.visitante}')">
-                        <span class="nombre-equipo">${partido.visitante}</span>
-                        <span class="bandera">${partido.banderaV}</span>
-                    </button>
-                </div>
-                <div class="etiqueta-prediccion">Probabilidad de Victoria</div>
-                <div class="barra-probabilidades">
-                    <div class="progreso-local" style="width: ${partido.pctL}%"></div>
-                    <div class="progreso-empate" style="width: ${partido.pctE}%"></div>
-                    <div class="progreso-visitante" style="width: ${partido.pctV}%"></div>
-                </div>
-                <div class="numeros-porcentajes">
-                    <span class="pct-l">${partido.local}: ${partido.pctL}%</span>
-                    <span class="pct-e">Empate: ${partido.pctE}%</span>
-                    <span class="pct-v">${partido.visitante}: ${partido.pctV}%</span>
-                </div>
-                <div id="clasificacion-p-${partido.id}">${alertaHTML}</div>
-            `;
-            contenedor.appendChild(tarjeta);
+            groupCard.appendChild(teamItem);
         });
 
-    } else if (vistaActual === "Fase 2") {
-        titulo.innerText = "Fase 2 - Dieciseisavos de Final";
-
-        partidosFase2.forEach(partido => {
-            const tarjeta = document.createElement("div");
-            tarjeta.className = "contenedor-prediccion";
-            
-            tarjeta.innerHTML = `
-                <div class="tarjeta-partido">
-                    <div class="equipo" style="justify-content: flex-start; font-weight: 900;">
-                        <span class="bandera">${partido.banderaL}</span>
-                        <span class="nombre-equipo">${partido.local}</span>
-                    </div>
-                    <div class="marcador-input">
-                        <span class="vs">VS</span>
-                    </div>
-                    <div class="equipo" style="justify-content: flex-end; font-weight: 900;">
-                        <span class="nombre-equipo">${partido.visitante}</span>
-                        <span class="bandera">${partido.banderaV}</span>
-                    </div>
-                </div>
-                <div class="etiqueta-prediccion" style="text-align: center; color: var(--color-amarillo);">Partido de Eliminación Directa</div>
-            `;
-            contenedor.appendChild(tarjeta);
-        });
+        container.appendChild(groupCard);
     }
 }
 
-// Ejecuta la lógica fija al primer clic de la Fase 1 y clasifica al ganador a la Fase 2
-window.simularResultadoFase1 = function(partidoId, equipoSeleccionado) {
-    const partidos = gruposMundial[grupoActivo];
-    const partido = partidos.find(p => p.id === partidoId);
-    if (!partido || partido.completado) return;
+function toggleGroupSelection(groupLetter, teamName, element) {
+    let selected = userSelections.groups[groupLetter];
 
-    let golesGanador = Math.floor(Math.random() * 3) + 2; 
-    let golesPerdedor = Math.floor(Math.random() * golesGanador); 
-
-    let golesLocal, golesVisitante, banderaGanador;
-    let textoResultadoHTML = "";
-
-    if (equipoSeleccionado === partido.local) {
-        golesLocal = golesGanador;
-        golesVisitante = golesPerdedor;
-        banderaGanador = partido.banderaL;
-        textoResultadoHTML = `
-            <p><span class="texto-resaltado-clasificado">🏆 GANADOR ${partido.local.toUpperCase()}</span> 
-            <span style="color: #ff3333; margin-left: 0.5rem;">❌ ELIMINADO ${partido.visitante.toUpperCase()}</span></p>
-        `;
+    if (selected.includes(teamName)) {
+        // Deseleccionar
+        userSelections.groups[groupLetter] = selected.filter(t => t !== teamName);
+        element.classList.remove("selected");
+        element.querySelector(".badge").innerText = "⭕";
     } else {
-        golesLocal = golesPerdedor;
-        golesVisitante = golesGanador;
-        banderaGanador = partido.banderaV;
-        textoResultadoHTML = `
-            <p><span style="color: #ff3333;">❌ ELIMINADO ${partido.local.toUpperCase()}</span> 
-            <span class="texto-resaltado-clasificado" style="margin-left: 0.5rem;">🏆 GANADOR ${partido.visitante.toUpperCase()}</span></p>
-        `;
-    }
-
-    // Bloqueamos el partido de Fase 1
-    partido.completado = true;
-    partido.ganador = equipoSeleccionado;
-    partido.banderaG = banderaGanador;
-    partido.golesL = golesLocal;
-    partido.golesV = golesVisitante;
-    partido.mensajeGuardado = textoResultadoHTML;
-
-    // ACTUALIZACIÓN DE LA FASE 2: Enviamos los datos al casillero correspondiente de Fase 2
-    actualizarCrucesFase2(partidoId, equipoSeleccionado, banderaGanador);
-
-    // Pintamos en tiempo real el resultado en la Fase 1
-    document.getElementById(`marcador-p-${partidoId}`).innerHTML = `
-        <div class="marcador-final-display"><span class="goles-finales">${golesLocal} - ${golesVisitante}</span></div>
-    `;
-    document.getElementById(`clasificacion-p-${partidoId}`).innerHTML = `
-        <div class="alerta-clasificacion">${textoResultadoHTML}</div>
-    `;
-}
-
-// Función matemática/lógica para acomodar a los ganadores en los casilleros de la Fase 2
-function actualizarCrucesFase2(partidoIdF1, nombreGanador, banderaGanador) {
-    // Mapeo: Qué ID de partido de Fase 1 llena qué espacio en Fase 2
-    // Impares van al lado Local, Pares van al lado Visitante
-    const mapaCruces = {
-        1:  { campo: "local",     index: 0 }, // P1 (Gr. A) -> Local del Partido 1 en F2
-        3:  { campo: "visitante", index: 0 }, // P3 (Gr. B) -> Visitante del Partido 1 en F2
-        2:  { campo: "local",     index: 1 }, // P2 (Gr. A) -> Local del Partido 2 en F2
-        4:  { campo: "visitante", index: 1 }, // P4 (Gr. B) -> Visitante del Partido 2 en F2
-        5:  { campo: "local",     index: 2 }, // P5 (Gr. C) -> Local del Partido 3 en F2
-        7:  { campo: "visitante", index: 2 }, 
-        6:  { campo: "local",     index: 3 }, // P6 (Gr. C) -> Local del Partido 4 en F2
-        8:  { campo: "visitante", index: 3 },
-        9:  { campo: "local",     index: 4 }, // P9 (Gr. E) -> Local del Partido 5 en F2
-        11: { campo: "visitante", index: 4 },
-        10: { campo: "local",     index: 5 }, 
-        12: { campo: "visitante", index: 5 },
-        13: { campo: "local",     index: 6 }, 
-        15: { campo: "visitante", index: 6 },
-        14: { campo: "local",     index: 7 }, 
-        16: { campo: "visitante", index: 7 },
-        17: { campo: "local",     index: 8 }, 
-        19: { campo: "visitante", index: 8 },
-        18: { campo: "local",     index: 9 }, 
-        20: { campo: "visitante", index: 9 },
-        21: { campo: "local",     index: 10 }, 
-        23: { campo: "visitante", index: 10 },
-        22: { campo: "local",     index: 11 }, 
-        24: { campo: "visitante", index: 11 }
-    };
-
-    const cruce = mapaCruces[partidoIdF1];
-    if (cruce) {
-        const partidoF2 = partidosFase2[cruce.index];
-        if (cruce.campo === "local") {
-            partidoF2.local = nombreGanador;
-            partidoF2.banderaL = banderaGanador;
+        // Validar límite de máximo 2 clasificados por grupo
+        if (selected.length < 2) {
+            userSelections.groups[groupLetter].push(teamName);
+            element.classList.add("selected");
+            element.querySelector(".badge").innerText = "✅";
         } else {
-            partidoF2.visitante = nombreGanador;
-            partidoF2.banderaV = banderaGanador;
+            alert(`Ya has seleccionado los 2 clasificados del Grupo ${groupLetter}. Deselecciona uno primero.`);
         }
     }
 }
 
-// Navegadores de estados de interfaz
-window.irAFase1 = function(grupo) {
-    vistaActual = "Fase 1";
-    grupoActivo = grupo;
-    crearMenuGrupos();
-    cargarPartidos();
+// --- CONFIGURACIÓN DE NAVEGACIÓN Y LOGICA FASES ---
+function changePhase(currentId, nextId) {
+    document.getElementById(currentId).classList.remove("active-phase");
+    document.getElementById(nextId).classList.add("active-phase");
+    window.scrollTo(0, 0);
 }
 
-window.irAFase2 = function() {
-    vistaActual = "Fase 2";
-    crearMenuGrupos();
-    cargarPartidos();
+function setupEventListeners() {
+    // Pasar a Octavos
+    document.getElementById("btn-to-octavos").addEventListener("click", () => {
+        for (const [letter, teams] of Object.entries(userSelections.groups)) {
+            if (teams.length !== 2) {
+                alert(`Por favor, selecciona exactamente 2 ganadores para el Grupo ${letter}`);
+                return;
+            }
+        }
+        generateOctavosMatchups();
+        changePhase("phase-groups", "phase-octavos");
+    });
+
+    // Pasar a Cuartos
+    document.getElementById("btn-to-cuartos").addEventListener("click", () => {
+        const totalMatchups = document.querySelectorAll("#octavos-container .matchup").length;
+        if (userSelections.octavosWinners.length < totalMatchups) {
+            alert("Por favor, selecciona al ganador de todos los encuentros de Octavos.");
+            return;
+        }
+        generateCuartosMatchups();
+        changePhase("phase-octavos", "phase-cuartos");
+    });
+
+    // NUEVO: Pasar a Semifinales
+    document.getElementById("btn-to-semis").addEventListener("click", () => {
+        const totalMatchups = document.querySelectorAll("#cuartos-container .matchup").length;
+        if (userSelections.cuartosWinners.length < totalMatchups) {
+            alert("Por favor, selecciona al ganador de todos los encuentros de Cuartos.");
+            return;
+        }
+        generateSemisMatchups();
+        changePhase("phase-cuartos", "phase-semis");
+    });
+
+    // NUEVO: Pasar a la Final
+    document.getElementById("btn-to-final").addEventListener("click", () => {
+        const totalMatchups = document.querySelectorAll("#semis-container .matchup").length;
+        if (userSelections.semisWinners.length < totalMatchups) {
+            alert("Por favor, selecciona al ganador de las Semifinales.");
+            return;
+        }
+        generateFinalMatchup();
+        changePhase("phase-semis", "phase-final");
+    });
+
+    // Finalizar Quiniela (Modificado para validar el campeón)
+    document.getElementById("btn-finish").addEventListener("click", () => {
+        if (!userSelections.champion) {
+            alert("Por favor, selecciona al Campeón del Mundo.");
+            return;
+        }
+        showSummary();
+        changePhase("phase-final", "phase-summary");
+    });
 }
 
-// Arranque inicial
-window.onload = function() {
-    crearMenuGrupos();
-    cargarPartidos();
-};
+// --- LOGICA DE OCTAVOS DE FINAL ---
+function generateOctavosMatchups() {
+    const container = document.getElementById("octavos-container");
+    container.innerHTML = "";
+    userSelections.octavosWinners = [];
+
+    let qualifiedTeams = [];
+    alphabet.forEach(letter => {
+        qualifiedTeams.push(...userSelections.groups[letter]);
+    });
+
+    let octavosTeams = qualifiedTeams.slice(0, 16); 
+
+    for (let i = 0; i < octavosTeams.length; i += 2) {
+        const team1 = octavosTeams[i];
+        const team2 = octavosTeams[i+1];
+        const matchId = `octavos-m-${i}`;
+
+        createMatchupElement(container, team1, team2, matchId, userSelections.octavosWinners);
+    }
+}
+
+// --- LOGICA DE CUARTOS DE FINAL ---
+function generateCuartosMatchups() {
+    const container = document.getElementById("cuartos-container");
+    container.innerHTML = "";
+    userSelections.cuartosWinners = [];
+
+    const teams = userSelections.octavosWinners;
+
+    for (let i = 0; i < teams.length; i += 2) {
+        const team1 = teams[i];
+        const team2 = teams[i+1];
+        const matchId = `cuartos-m-${i}`;
+
+        createMatchupElement(container, team1, team2, matchId, userSelections.cuartosWinners);
+    }
+}
+
+// --- NUEVO: LOGICA DE SEMIFINALES ---
+function generateSemisMatchups() {
+    const container = document.getElementById("semis-container");
+    container.innerHTML = "";
+    userSelections.semisWinners = [];
+
+    const teams = userSelections.cuartosWinners;
+
+    for (let i = 0; i < teams.length; i += 2) {
+        const team1 = teams[i];
+        const team2 = teams[i+1];
+        const matchId = `semis-m-${i}`;
+
+        createMatchupElement(container, team1, team2, matchId, userSelections.semisWinners);
+    }
+}
+
+// --- NUEVO: LOGICA DE LA GRAN FINAL ---
+function generateFinalMatchup() {
+    const container = document.getElementById("final-container");
+    container.innerHTML = "";
+    userSelections.champion = ""; // Resetear campeón
+
+    const teams = userSelections.semisWinners;
+
+    // Solo hay un encuentro (2 equipos)
+    const team1 = teams[0];
+    const team2 = teams[1];
+    
+    const matchupDiv = document.createElement("div");
+    matchupDiv.className = "matchup";
+    matchupDiv.innerHTML = `<h4>👑 Encuentro Final 👑</h4>`;
+
+    const item1 = document.createElement("div");
+    item1.className = "team-item";
+    item1.innerHTML = `<span>${team1}</span>`;
+
+    const item2 = document.createElement("div");
+    item2.className = "team-item";
+    item2.innerHTML = `<span>${team2}</span>`;
+
+    item1.addEventListener("click", () => {
+        item1.classList.add("selected");
+        item2.classList.remove("selected");
+        userSelections.champion = team1;
+    });
+
+    item2.addEventListener("click", () => {
+        item2.classList.add("selected");
+        item1.classList.remove("selected");
+        userSelections.champion = team2;
+    });
+
+    matchupDiv.appendChild(item1);
+    matchupDiv.appendChild(item2);
+    container.appendChild(matchupDiv);
+}
+
+// --- UTILERÍA PARA CREAR LLAVES / ENFRENTAMIENTOS EN PLAYOFFS ---
+function createMatchupElement(container, team1, team2, matchId, targetArray) {
+    const matchupDiv = document.createElement("div");
+    matchupDiv.className = "matchup";
+    matchupDiv.innerHTML = `<h4>Encuentro</h4>`;
+
+    const item1 = document.createElement("div");
+    item1.className = "team-item";
+    item1.innerHTML = `<span>${team1}</span>`;
+
+    const item2 = document.createElement("div");
+    item2.className = "team-item";
+    item2.innerHTML = `<span>${team2}</span>`;
+
+    item1.addEventListener("click", () => {
+        selectMatchupWinner(item1, item2, team1, team2, targetArray);
+    });
+
+    item2.addEventListener("click", () => {
+        selectMatchupWinner(item2, item1, team2, team1, targetArray);
+    });
+
+    matchupDiv.appendChild(item1);
+    matchupDiv.appendChild(item2);
+    container.appendChild(matchupDiv);
+}
+
+function selectMatchupWinner(winnerElement, loserElement, winnerName, loserName, targetArray) {
+    winnerElement.classList.add("selected");
+    loserElement.classList.remove("selected");
+
+    const indexLoser = targetArray.indexOf(loserName);
+    if (indexLoser > -1) targetArray.splice(indexLoser, 1);
+
+    if (!targetArray.includes(winnerName)) {
+        targetArray.push(winnerName);
+    }
+}
+
+// --- MOSTRAR RESUMEN FINAL GRÁFICO MEJORADO (BRACKET MUNDIAL) ---
+// --- MOSTRAR RESUMEN FINAL GRÁFICO CON ACCIÓN DE PDF ---
+function showSummary() {
+    const content = document.getElementById("summary-content");
+    
+    // Obtener los arreglos de ganadores guardados por el usuario
+    const oct = userSelections.octavosWinners;
+    const cua = userSelections.cuartosWinners;
+    const sem = userSelections.semisWinners;
+    const champ = userSelections.champion;
+
+    content.innerHTML = `
+        <div class="summary-header-zone" style="text-align: center; margin-bottom: 2.5rem;">
+            <h2 style="font-size: 2.8rem; color: #b7791f; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">🏆 ¡${champ.toUpperCase()} CAMPEÓN! 🏆</h2>
+            <p style="color: var(--secondary-color); font-size: 1.1rem;">Tu árbol definitivo del torneo de eliminación directa</p>
+        </div>
+
+        <div class="summary-actions-top" style="text-align: center; margin-bottom: 2rem;">
+            <button onclick="window.print()" class="btn success" style="background-color: #e53e3e; display: inline-flex; align-items: center; gap: 8px;">
+                📄 Guardar Resultado en PDF
+            </button>
+        </div>
+
+        <div class="world-cup-bracket" id="pdf-bracket-capture">
+            
+            <div class="bracket-side">
+                <div class="bracket-column">
+                    <div class="column-title">Octavos (Izq)</div>
+                    <div class="bracket-match"><div class="bracket-team selected-final">${oct[0] || '---'}</div><div class="bracket-team selected-final">${oct[1] || '---'}</div></div>
+                    <div class="bracket-match"><div class="bracket-team selected-final">${oct[2] || '---'}</div><div class="bracket-team selected-final">${oct[3] || '---'}</div></div>
+                </div>
+                
+                <div class="bracket-column justify-center-gap">
+                    <div class="column-title">Cuartos (Izq)</div>
+                    <div class="bracket-match">
+                        <div class="bracket-team ${cua.includes(oct[0]) || cua.includes(oct[1]) ? 'winner-branch' : ''}">${cua[0] || '---'}</div>
+                        <div class="bracket-team ${cua.includes(oct[2]) || cua.includes(oct[3]) ? 'winner-branch' : ''}">${cua[1] || '---'}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bracket-center-zone">
+                <div class="semis-row">
+                    <div class="semi-box">
+                        <small>Semifinal 1</small>
+                        <div class="bracket-team ${sem.includes(cua[0]) || sem.includes(cua[1]) ? 'winner-branch' : ''}">${sem[0] || '---'}</div>
+                    </div>
+                    <div class="semi-box">
+                        <small>Semifinal 2</small>
+                        <div class="bracket-team ${sem.includes(cua[2]) || sem.includes(cua[3]) ? 'winner-branch' : ''}">${sem[1] || '---'}</div>
+                    </div>
+                </div>
+
+                <div class="final-match-box">
+                    <h3>FINAL</h3>
+                    <div class="final-teams">
+                        <div class="final-team-card">${sem[0] || '---'}</div>
+                        <span class="vs-circle">VS</span>
+                        <div class="final-team-card">${sem[1] || '---'}</div>
+                    </div>
+                </div>
+
+                <div class="champion-podium">
+                    <div class="crown-animation">👑</div>
+                    <div class="podium-banner">
+                        <span class="champion-title">CAMPEÓN DEL MUNDO</span>
+                        <h2 class="champion-name-display">${champ || '---'}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bracket-side reverse-side">
+                <div class="bracket-column justify-center-gap">
+                    <div class="column-title">Cuartos (Der)</div>
+                    <div class="bracket-match">
+                        <div class="bracket-team ${cua.includes(oct[4]) || cua.includes(oct[5]) ? 'winner-branch' : ''}">${cua[2] || '---'}</div>
+                        <div class="bracket-team ${cua.includes(oct[6]) || cua.includes(oct[7]) ? 'winner-branch' : ''}">${cua[3] || '---'}</div>
+                    </div>
+                </div>
+
+                <div class="bracket-column">
+                    <div class="column-title">Octavos (Der)</div>
+                    <div class="bracket-match"><div class="bracket-team selected-final">${oct[4] || '---'}</div><div class="bracket-team selected-final">${oct[5] || '---'}</div></div>
+                    <div class="bracket-match"><div class="bracket-team selected-final">${oct[6] || '---'}</div><div class="bracket-team selected-final">${oct[7] || '---'}</div></div>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
