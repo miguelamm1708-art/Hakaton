@@ -1,529 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@700;900&display=swap');
+
 :root {
-    --primary-color: #102a43;
-    --secondary-color: #627d98;
-    --accent-color: #048243;
-    --accent-selected: #243b53;
-    --background-color: #f0f4f8;
-    --card-background: #ffffff;
-    --text-color: #102a43;
+    --color-fondo-pro: #1e0b36;      /* Morado muy oscuro de fondo */
+    --color-tarjeta: #3b1466;        /* Morado Copa Toon para bloques */
+    --color-neon-verde: #00ff66;     /* Verde neón súper brillante */
+    --color-neon-morado: #cc00ff;    /* Morado neón para acentos */
+    --color-amarillo: #fff500;       /* Amarillo de advertencia/destaque */
+    --color-blanco: #ffffff;
+    --borde-negro: 4px solid #000000;/* El místico borde grueso de CN */
+    --sombra-cartoon: 5px 5px 0px #000000; /* Sombra sólida sin difuminar */
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    font-family: 'Rubik', sans-serif;
+    background-color: var(--color-fondo-pro);
+    background-image: radial-gradient(var(--color-tarjeta) 20%, transparent 20%); /* Fondo con puntos sutiles tipo cómic */
+    background-size: 20px 20px;
+    color: var(--color-blanco);
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: #000000;
+    border-bottom: var(--borde-negro);
+    padding: 1.5rem 0;
+}
+
+.contenedor-logo-toon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.barra-logo-superior, .barra-logo-inferior {
+    width: 100%;
+    height: 6px;
+    background-color: var(--color-neon-verde);
+}
+
+.bloque-logo-principal {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+}
+
+.balon-fuego-toon {
+    font-size: 3rem;
+    position: relative;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.textos-logo {
     text-align: center;
-    padding: 2rem 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.marca-copatoon {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 2.5rem;
+    color: var(--color-amarillo);
+    margin: 0;
+    text-shadow: 4px 4px 0px #000, -4px -4px 0px #000, 4px -4px 0px #000, -4px 4px 0px #000;
+    letter-spacing: 2px;
+}
+
+.subtitulo-copatoon {
+    font-weight: 900;
+    color: var(--color-neon-morado);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
 }
 
 #app-container {
-    max-width: 1200px;
+    max-width: 1400px; 
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* Control del Sistema de Fases (Ocultar/Mostrar) */
+/* Control del Sistema de Fases */
 .phase {
-    display: none; /* Oculto por defecto */
-    animation: fadeIn 0.5s ease-in-out;
+    display: none; 
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .phase.active-phase {
-    display: block; /* Solo se muestra la fase activa */
+    display: block; 
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.phase h2 {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--color-blanco);
+    text-shadow: 3px 3px 0px var(--color-neon-morado);
+    text-transform: uppercase;
 }
 
 .instruction {
+    text-align: center;
     font-style: italic;
-    color: var(--secondary-color);
-    margin-bottom: 1.5rem;
+    color: #bfaad4;
+    margin-bottom: 2rem;
+    font-weight: 700;
 }
 
 /* Grid de Grupos */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
 .group-card {
-    background: var(--card-background);
-    border-radius: 8px;
+    background-color: var(--color-tarjeta);
+    border: var(--borde-negro);
+    box-shadow: var(--sombra-cartoon);
     padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    border-top: 4px solid var(--primary-color);
+    border-radius: 0px; 
 }
 
 .group-card h3 {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1rem;
     margin-top: 0;
-    border-bottom: 1px solid #e2e8f0;
+    color: var(--color-amarillo);
+    border-bottom: 3px dashed rgba(255, 255, 255, 0.15);
     padding-bottom: 0.5rem;
+    text-align: center;
 }
 
-/* Lista de Países */
+/* Lista de Países e Items de Selección */
 .team-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem;
-    margin: 0.25rem 0;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
+    padding: 0.45rem 0.6rem;
+    margin: 0.3rem 0;
+    background: #150527;
+    border: 2px solid transparent;
+    color: var(--color-blanco);
+    font-weight: 700;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.2s;
+    white-space: nowrap;           /* Evita que el nombre del país se rompa en dos líneas */
+    transition: all 0.1s ease;
 }
 
 .team-item:hover {
-    background-color: #f7fafc;
+    background-color: var(--color-neon-morado);
+    color: #ffffff;
+    border-color: #000000;
 }
 
 .team-item.selected {
-    background-color: var(--accent-color);
-    color: white;
-    border-color: var(--accent-color);
+    background-color: var(--color-neon-verde) !important;
+    color: #000000 !important;
+    font-weight: 900;
+    border: 2px solid #000000;
 }
 
-/* Contenedor de Llaves / Enfrentamientos */
+/* Contenedor de Llaves / Enfrentamientos en PlayOffs */
 .matchups-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    max-width: 500px;
+    gap: 1.2rem;
+    max-width: 320px;
     margin: 0 auto 2rem auto;
 }
 
 .matchup {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background: var(--color-tarjeta);
+    border: var(--borde-negro);
+    box-shadow: 4px 4px 0px #000000;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.2rem;
 }
 
-/* Botones de acción */
+.matchup h4 {
+    margin: 0 0 0.4rem 0;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-neon-verde);
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* Botones de acción Toon */
 .actions {
     text-align: center;
     margin-top: 2rem;
 }
 
 .btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 5px;
+    background-color: #000000;
+    color: var(--color-blanco);
+    border: var(--borde-negro);
+    padding: 0.8rem 1.8rem;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: background 0.2s;
+    box-shadow: 4px 4px 0px var(--color-neon-morado);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 .btn:hover {
-    background-color: var(--accent-selected);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--color-neon-morado);
+    background-color: #111;
 }
 
 .btn.success {
-    background-color: #2f855a;
+    background-color: var(--color-neon-verde);
+    color: #000000;
+    box-shadow: 4px 4px 0px #000000;
+}
+.btn.success:hover {
+    background-color: #00dd55;
+    box-shadow: 6px 6px 0px #000000;
 }
 
-/* --- ESTILOS DEL BRACKET / CUADRO VISUAL DE LA FINAL --- */
-.bracket-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    background: #f8fafc;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
-    overflow-x: auto; /* Por si la pantalla es pequeña, permite scroll horizontal */
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.bracket-round {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    flex: 1;
-    min-width: 160px;
-}
-
-.bracket-round h3 {
-    font-size: 0.9rem;
-    text-align: center;
-    color: var(--secondary-color);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 0.25rem;
-}
-
-.bracket-match {
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    overflow: hidden;
-}
-
-.bracket-team {
-    padding: 0.6rem 0.75rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border-bottom: 1px solid #f1f5f9;
-    color: #475569;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-.bracket-team:last-child {
-    border-bottom: none;
-}
-
-/* Resaltados especiales para ganadores y fases avanzadas */
-.selected-final {
-    background-color: #f1f5f9;
-    color: var(--primary-color);
-}
-
-.winner-branch {
-    background-color: #e6fffa;
-    color: #048243;
-    font-weight: bold;
-}
-
-.final-match-team {
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    padding: 0.8rem;
-}
-
-/* Caja del campeón destacado al centro/final */
-.central-final {
-    justify-content: center;
-    gap: 2rem;
-    background: #fffbeb;
-    border: 2px dashed #fef3c7;
-    padding: 1rem;
-    border-radius: 8px;
-}
-
-.champion-box {
-    text-align: center;
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    border: 2px solid #f59e0b;
-    border-radius: 8px;
-    padding: 1rem 0.5rem;
-    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
-    animation: pulse 2s infinite;
-}
-
-.champion-box .crown {
-    font-size: 2rem;
-    margin-bottom: 0.25rem;
-}
-
-.champion-box .champion-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #78350f;
-}
-
-.champion-box small {
-    font-weight: 800;
-    color: #b45309;
-    letter-spacing: 1.5px;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-}
-
-/* --- ESTILOS DEL CONTENEDOR BRACKET MUNDIAL SIMÉTRICO --- */
+/* ==========================================================================
+    🗺️ ARBOL DE RESUMEN FINAL COMPACTO (ZONA DE RESULTADOS PDF)
+   ========================================================================== */
 .world-cup-bracket {
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    background: #edf2f7;
-    padding: 2.5rem 1.5rem;
-    border-radius: 16px;
-    box-shadow: inset 0 4px 12px rgba(0,0,0,0.06);
-    gap: 1rem;
-    overflow-x: auto;
+    justify-content: center;       
+    align-items: stretch;          
+    gap: 1.5rem;                   /* Acercamiento horizontal de las fases */
+    padding: 1.5rem 1rem;          
+    overflow-x: auto;              
+    background: #0d0221;           /* Fondo espacial oscuro */
+    border: var(--borde-negro);
+    box-shadow: var(--sombra-cartoon);
 }
 
-/* Lados izquierdo y derecho */
 .bracket-side {
     display: flex;
     flex: 2;
     gap: 1.5rem;
 }
 .bracket-side.reverse-side {
-    flex-direction: row-reverse; /* Invierte el orden en el lado derecho */
+    flex-direction: row-reverse; 
 }
 
-/* Columnas de fases individuales */
 .bracket-column {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
+    min-width: 190px;              /* Ancho optimizado para pantallas */
     flex: 1;
-    min-width: 140px;
 }
 .justify-center-gap {
     justify-content: center;
-    gap: 6rem; /* Separa los dos partidos de cuartos de final */
+    gap: 4rem; 
 }
 
 .column-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--secondary-color);
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-neon-verde);
+    text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
     text-align: center;
-    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 100%;
     margin-bottom: 0.5rem;
-    border-bottom: 2px solid #cbd5e1;
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 3px dashed rgba(255, 255, 255, 0.15);
 }
 
-/* Cajas de Encuentros */
 .bracket-match {
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+    background: var(--color-tarjeta);
+    border: var(--borde-negro);
+    box-shadow: 3px 3px 0px #000000;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    gap: 0.15rem;
+    padding: 0.3rem;
 }
 
 .bracket-team {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #4a5568;
-    border-bottom: 1px solid #edf2f7;
+    background: #150527;
+    color: var(--color-blanco);
+    padding: 0.45rem 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 700;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.bracket-team:last-child {
-    border-bottom: none;
-}
 
-/* Estados de colores */
 .selected-final {
-    background-color: #f7fafc;
-}
-.winner-branch {
-    background-color: #e6fffa;
-    color: #234e52;
-    border-left: 4px solid var(--accent-color);
-    font-weight: 700;
+    background-color: #1d0b3a;
+    color: #ffffff;
 }
 
-/* ================= ZONA CENTRAL DEL TORNEO ================= */
+.winner-branch {
+    background-color: var(--color-neon-verde) !important;
+    color: #000000 !important;
+    font-weight: 900;
+}
+
+/* ZONA CENTRAL DEL RESUMEN */
 .bracket-center-zone {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     flex: 3;
-    min-width: 280px;
-    padding: 0 1rem;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 12px;
-    border: 1px dashed #cbd5e1;
+    min-width: 260px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 3px dashed var(--color-tarjeta);
 }
 
-/* Semifinales en fila arriba */
 .semis-row {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-top: 1rem;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 .semi-box {
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    background: var(--color-tarjeta);
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000;
     flex: 1;
     text-align: center;
     overflow: hidden;
+    padding: 0.25rem;
 }
 .semi-box small {
     display: block;
-    background: #edf2f7;
-    color: #718096;
-    font-size: 0.75rem;
-    font-weight: bold;
-    padding: 0.2rem 0;
+    color: var(--color-amarillo);
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 0.6rem;
+    margin-bottom: 0.2rem;
 }
 
-/* Bloque central de la final */
 .final-match-box {
-    background: var(--primary-color);
-    color: white;
+    background: #000000;
+    border: var(--borde-negro);
+    box-shadow: 4px 4px 0px var(--color-neon-morado);
     width: 100%;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 0.8rem;
+    box-sizing: border-box;
     text-align: center;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
 }
 .final-match-box h3 {
-    margin: 0 0 0.75rem 0;
-    letter-spacing: 2px;
-    font-size: 1.1rem;
-    color: #e2e8f0;
+    margin: 0 0 0.5rem 0;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1rem;
+    color: var(--color-blanco);
 }
 .final-teams {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 .final-team-card {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
-    font-weight: bold;
+    background: #150527;
+    padding: 0.5rem;
+    font-weight: 900;
     flex: 1;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 .vs-circle {
-    background: #e2e8f0;
-    color: var(--primary-color);
-    font-size: 0.75rem;
-    font-weight: 900;
-    width: 24px;
-    height: 24px;
+    font-family: 'Rubik Mono One', sans-serif;
+    background: var(--color-amarillo);
+    color: #000;
+    font-size: 0.65rem;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    border: 2px solid #000;
 }
 
-/* Podio del Campeón destacado */
+/* Banner de Campeón Destacado */
 .champion-podium {
     text-align: center;
-    margin-bottom: 1.5rem;
     width: 100%;
 }
 .crown-animation {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: -5px;
     animation: bounce 2s infinite;
 }
 .podium-banner {
-    background: linear-gradient(135deg, #ecc94b 0%, #d69e2e 100%);
-    border: 2px solid #b7791f;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(214, 158, 46, 0.4);
+    background: linear-gradient(90deg, var(--color-amarillo), #ff0055);
+    border: var(--borde-negro);
+    padding: 0.8rem;
+    box-shadow: var(--sombra-cartoon);
 }
 .champion-title {
     display: block;
-    font-size: 0.75rem;
-    font-weight: 900;
-    color: #744210;
-    letter-spacing: 2px;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 0.7rem;
+    color: #000000;
+    letter-spacing: 1px;
 }
 .champion-name-display {
-    margin: 0.25rem 0 0 0;
-    font-size: 1.5rem;
+    margin: 0.2rem 0 0 0;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1.3rem;
     color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 3px 3px 0px #000;
 }
 
-/* Animaciones */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-6px); }
 }
 
-/* ================= REGLAS DE OPTIMIZACIÓN DE IMPRESIÓN (PDF) ================= */
+/* PRINT PDF TRICKS */
 @media print {
-    /* Ocultar todo el sitio web excepto la zona del resumen final */
-    body * {
-        visibility: hidden;
-    }
+    body * { visibility: hidden; }
+    #phase-summary, #phase-summary * { visibility: visible; }
+    #phase-summary { position: absolute; left: 0; top: 0; width: 100%; }
+    .summary-actions-top, header, .actions { display: none !important; }
     
-    #phase-summary, #phase-summary * {
-        visibility: visible;
-    }
-    
-    /* Posicionar el área del resumen para que ocupe de manera óptima la hoja */
-    #phase-summary {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Ocultar botones interactivos dentro del PDF generado */
-    .summary-actions-top, 
-    #phase-summary .actions,
-    header {
-        display: none !important;
-    }
-
-    /* Forzar que se mantengan los colores de fondo e iluminaciones en la exportación */
     .world-cup-bracket {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        background: #edf2f7 !important;
-        border: 1px solid #cbd5e1 !important;
+        background: #0d0221 !important;
     }
-
     .winner-branch {
-        background-color: #e6fffa !important;
+        background-color: #00ff66 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-
     .podium-banner {
-        background: linear-gradient(135deg, #ecc94b 0%, #d69e2e 100%) !important;
+        background: linear-gradient(90deg, #fff500, #ff0055) !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-
-    .final-match-box {
-        background-color: #102a43 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-
-    /* Configuración del tamaño de página horizontal */
-    @page {
-        size: A4 landscape;
-        margin: 10mm;
-    }
+    @page { size: A4 landscape; margin: 10mm; }
 }
