@@ -7,7 +7,7 @@ const baseCountries = [
     "Dinamarca", "Chile", "Canadá", "Corea del Sur",
     "Ecuador", "España", "Egipto", "EE. UU.",
     "Francia", "Fiyi", "Finlandia", "Filipinas",
-    "Alematrix", "Ghana", "Grecia", "Guatemala",
+    "Alemania", "Ghana", "Grecia", "Guatemala",
     "Países Bajos", "Honduras", "Hungría", "Haití",
     "Italia", "Irán", "Irlanda", "Irak",
     "Japón", "Jamaica", "Jordania", "china",
