@@ -1,0 +1,182 @@
+:root {
+    --color-primario: #10b981;
+    --color-oscuro: #1e293b;
+    --color-fondo: #f1f5f9;
+    --color-blanco: #ffffff;
+    --color-grupo: #0f172a;
+    --color-tabla-cabecera: #334155;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-oscuro);
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: linear-gradient(135deg, #065f46, var(--color-primario));
+    color: var(--color-blanco);
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor {
+    max-width: 650px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- MENÚ DE NAVEGACIÓN DE GRUPOS --- */
+.menu-navegacion {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto; /* Permite deslizar a los lados en móvil */
+    padding: 0.5rem 0;
+    margin-bottom: 1.5rem;
+    scrollbar-width: thin;
+}
+
+.btn-tab {
+    background-color: #e2e8f0;
+    color: #475569;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.btn-tab:hover {
+    background-color: #cbd5e1;
+}
+
+.btn-tab.activo {
+    background-color: var(--color-grupo);
+    color: var(--color-blanco);
+}
+
+/* --- CONTENEDOR GRUPO --- */
+.titulo-grupo {
+    background-color: var(--color-grupo);
+    color: var(--color-blanco);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px 8px 0 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.contenedor-tabla {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.tabla-posiciones {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-blanco);
+    font-size: 0.9rem;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+.tabla-posiciones th {
+    background-color: var(--color-tabla-cabecera);
+    color: var(--color-blanco);
+    padding: 0.6rem;
+}
+
+.tabla-posiciones td {
+    padding: 0.6rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.text-izq {
+    text-align: left;
+    padding-left: 1rem !important;
+}
+
+.subtitulo-partidos {
+    font-size: 1rem;
+    color: #475569;
+    margin: 1.5rem 0 0.5rem 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* --- TARJETAS DE PARTIDOS --- */
+.contenedor-prediccion {
+    background-color: var(--color-blanco);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.contenedor-prediccion .tarjeta-partido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.equipo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 38%;
+}
+
+.equipo:last-child { justify-content: flex-end; }
+.bandera { font-size: 1.8rem; }
+.nombre-equipo { font-weight: 600; font-size: 1rem; }
+
+.marcador-input { display: flex; align-items: center; gap: 0.4rem; }
+.marcador-input input {
+    width: 45px;
+    height: 38px;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.marcador-input input:focus { border-color: var(--color-primario); outline: none; }
+.vs { font-weight: bold; color: #94a3b8; font-size: 0.9rem; }
+
+/* Porcentajes */
+.seccion-porcentajes { margin-top: 0.6rem; }
+.etiqueta-prediccion { font-size: 0.75rem; color: #64748b; font-weight: bold; margin-bottom: 0.3rem; }
+.barra-probabilidades { height: 10px; display: flex; border-radius: 5px; overflow: hidden; background-color: #e2e8f0; margin-bottom: 0.3rem; }
+.progreso-local { background-color: #10b981; }
+.progreso-empate { background-color: #94a3b8; }
+.progreso-visitante { background-color: #3b82f6; }
+.numeros-porcentajes { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: bold; }
+.pct-l { color: #10b981; }
+.pct-e { color: #64748b; }
+.pct-v { color: #3b82f6; }
+
+/* Botones y Tablero */
+.btn-principal {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+}
+.btn-principal:hover { background-color: #047857; }
+.tablero-puntos { background-color: var(--color-blanco); border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-top: 1.5rem; }
+.puntos { font-size: 2.5rem; font-weight: bold; color: var(--color-primario); display: block; }
+.mensaje { font-style: italic; color: #64748b; }
