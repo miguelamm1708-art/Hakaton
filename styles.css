@@ -1,26 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@700;900&display=swap');
+
 :root {
-    --color-primario: #10b981;
-    --color-oscuro: #1e293b;
-    --color-fondo: #f1f5f9;
+    --color-fondo-pro: #1e0b36;      /* Morado muy oscuro de fondo */
+    --color-tarjeta: #3b1466;        /* Morado Copa Toon para bloques */
+    --color-neon-verde: #00ff66;     /* Verde neón súper brillante */
+    --color-neon-morado: #cc00ff;    /* Morado neón para acentos */
+    --color-amarillo: #fff500;       /* Amarillo de advertencia/destaque */
     --color-blanco: #ffffff;
-    --color-grupo: #0f172a;
-    --color-tabla-cabecera: #334155;
+    --borde-negro: 4px solid #000000;/* El mítico borde grueso de CN */
+    --sombra-cartoon: 5px 5px 0px #000000; /* Sombra sólida sin difuminar */
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--color-fondo);
-    color: var(--color-oscuro);
+    font-family: 'Rubik', sans-serif;
+    background-color: var(--color-fondo-pro);
+    background-image: radial-gradient(var(--color-tarjeta) 20%, transparent 20%); /* Fondo con puntos sutiles tipo cómic */
+    background-size: 20px 20px;
+    color: var(--color-blanco);
     margin: 0;
     padding: 0;
 }
 
+/* --- ENCABEZADO COPA TOON --- */
 header {
-    background: linear-gradient(135deg, #065f46, var(--color-primario));
-    color: var(--color-blanco);
+    background: repeating-linear-gradient(
+        45deg,
+        #2a085c,
+        #2a085c 20px,
+        #3b1466 20px,
+        #3b1466 40px
+    ); /* Líneas de fondo estilo canal de TV */
+    padding: 2.5rem 1rem;
     text-align: center;
-    padding: 2rem 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-bottom: var(--borde-negro);
+    box-shadow: 0 8px 0px rgba(0,0,0,0.3);
+}
+
+header h1 {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 2.8rem;
+    color: var(--color-amarillo);
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 6px 8px 0px var(--color-neon-morado);
+    margin: 0;
+    transform: skewX(-5deg) rotate(-1deg); /* Inclinación de acción */
+}
+
+header p {
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--color-neon-verde);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    letter-spacing: 2px;
 }
 
 .contenedor {
@@ -29,154 +61,223 @@ header {
     padding: 0 1rem;
 }
 
-/* --- MENÚ DE NAVEGACIÓN DE GRUPOS --- */
+/* --- MENÚ DE GRUPOS (BOTONES) --- */
 .menu-navegacion {
     display: flex;
-    gap: 0.5rem;
-    overflow-x: auto; /* Permite deslizar a los lados en móvil */
+    gap: 0.6rem;
+    overflow-x: auto;
     padding: 0.5rem 0;
-    margin-bottom: 1.5rem;
-    scrollbar-width: thin;
+    margin-bottom: 2rem;
 }
 
 .btn-tab {
-    background-color: #e2e8f0;
-    color: #475569;
-    border: none;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    border-radius: 20px;
+    background-color: var(--color-tarjeta);
+    color: var(--color-blanco);
+    font-family: 'Rubik', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    border: var(--borde-negro);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0px; /* Cuadrados al estilo retro */
     cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
+    transform: skewX(-10deg); /* Botón inclinado */
+    box-shadow: 3px 3px 0px #000;
+    transition: all 0.1s ease;
 }
 
 .btn-tab:hover {
-    background-color: #cbd5e1;
+    background-color: var(--color-neon-morado);
+    color: var(--color-blanco);
 }
 
 .btn-tab.activo {
-    background-color: var(--color-grupo);
-    color: var(--color-blanco);
+    background-color: var(--color-neon-verde);
+    color: #000000;
+    box-shadow: 1px 1px 0px #000;
+    transform: skewX(-10deg) translate(2px, 2px);
 }
 
-/* --- CONTENEDOR GRUPO --- */
+/* --- SECCIÓN DE LA TABLA --- */
 .titulo-grupo {
-    background-color: var(--color-grupo);
+    font-family: 'Rubik Mono One', sans-serif;
+    background-color: var(--color-neon-morado);
     color: var(--color-blanco);
     padding: 0.8rem 1.2rem;
-    border-radius: 8px 8px 0 0;
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-
-.contenedor-tabla {
-    overflow-x: auto;
-    margin-bottom: 1.5rem;
+    border: var(--borde-negro);
+    font-size: 1.4rem;
+    text-shadow: 2px 2px 0px #000;
+    transform: rotate(-1deg);
+    margin-bottom: -4px; /* Lo pega a la tabla */
+    display: inline-block;
 }
 
 .tabla-posiciones {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--color-blanco);
-    font-size: 0.9rem;
-    text-align: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border-radius: 0 0 8px 8px;
-    overflow: hidden;
+    background-color: var(--color-tarjeta);
+    border: var(--borde-negro);
+    box-shadow: var(--sombra-cartoon);
+    font-weight: 900;
 }
 
 .tabla-posiciones th {
-    background-color: var(--color-tabla-cabecera);
-    color: var(--color-blanco);
-    padding: 0.6rem;
-}
-
-.tabla-posiciones td {
-    padding: 0.6rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.text-izq {
-    text-align: left;
-    padding-left: 1rem !important;
-}
-
-.subtitulo-partidos {
-    font-size: 1rem;
-    color: #475569;
-    margin: 1.5rem 0 0.5rem 0;
-    font-weight: bold;
+    background-color: #000000;
+    color: var(--color-neon-verde);
+    padding: 0.8rem;
     text-transform: uppercase;
 }
 
-/* --- TARJETAS DE PARTIDOS --- */
+.tabla-posiciones td {
+    padding: 0.8rem;
+    border-bottom: var(--borde-negro);
+}
+
+/* --- TARJETAS DE PARTIDO COPA TOON --- */
+.subtitulo-partidos {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1.1rem;
+    color: var(--color-amarillo);
+    margin: 2.5rem 0 1rem 0;
+    text-shadow: 2px 2px 0px #000;
+}
+
 .contenedor-prediccion {
-    background-color: var(--color-blanco);
-    border-radius: 12px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background-color: var(--color-tarjeta);
+    border: var(--borde-negro);
+    border-radius: 0px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--sombra-cartoon);
 }
 
 .contenedor-prediccion .tarjeta-partido {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px dashed #e2e8f0;
+    padding-bottom: 1rem;
+    border-bottom: 3px dashed #000000;
 }
 
 .equipo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     width: 38%;
 }
 
 .equipo:last-child { justify-content: flex-end; }
-.bandera { font-size: 1.8rem; }
-.nombre-equipo { font-weight: 600; font-size: 1rem; }
+.bandera { font-size: 2.2rem; filter: drop-shadow(2px 2px 0px #000); }
+.nombre-equipo { font-weight: 900; font-size: 1.1rem; text-transform: uppercase; }
 
-.marcador-input { display: flex; align-items: center; gap: 0.4rem; }
+/* Marcadores (Inputs Toon) */
+.marcador-input { display: flex; align-items: center; gap: 0.5rem; }
 .marcador-input input {
-    width: 45px;
-    height: 38px;
-    font-size: 1.2rem;
+    width: 50px;
+    height: 45px;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1.5rem;
     text-align: center;
-    border: 2px solid #cbd5e1;
-    border-radius: 8px;
-    font-weight: bold;
+    background-color: #000000;
+    color: var(--color-neon-verde);
+    border: 3px solid var(--color-neon-morado);
+    outline: none;
 }
-.marcador-input input:focus { border-color: var(--color-primario); outline: none; }
-.vs { font-weight: bold; color: #94a3b8; font-size: 0.9rem; }
+.marcador-input input:focus {
+    border-color: var(--color-amarillo);
+}
+.vs {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: var(--color-amarillo);
+    font-size: 1rem;
+    text-shadow: 2px 2px 0px #000;
+}
 
-/* Porcentajes */
-.seccion-porcentajes { margin-top: 0.6rem; }
-.etiqueta-prediccion { font-size: 0.75rem; color: #64748b; font-weight: bold; margin-bottom: 0.3rem; }
-.barra-probabilidades { height: 10px; display: flex; border-radius: 5px; overflow: hidden; background-color: #e2e8f0; margin-bottom: 0.3rem; }
-.progreso-local { background-color: #10b981; }
-.progreso-empate { background-color: #94a3b8; }
-.progreso-visitante { background-color: #3b82f6; }
-.numeros-porcentajes { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: bold; }
-.pct-l { color: #10b981; }
-.pct-e { color: #64748b; }
-.pct-v { color: #3b82f6; }
+/* --- BARRAS DE PORCENTAJE (ESTILO BRAWL / COPA TOON) --- */
+.etiqueta-prediccion { 
+    font-weight: 900; 
+    font-size: 0.8rem; 
+    color: #bca0dc; 
+    text-transform: uppercase; 
+    margin: 0.8rem 0 0.4rem 0;
+}
 
-/* Botones y Tablero */
+.barra-probabilidades { 
+    height: 16px; 
+    display: flex; 
+    border: var(--borde-negro); 
+    background-color: #000000; 
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+.progreso-local { background-color: var(--color-neon-verde); }
+.progreso-empate { background-color: #7b7b7b; }
+.progreso-visitante { background-color: var(--color-neon-morado); }
+
+.numeros-porcentajes { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 0.8rem; 
+    font-weight: 900; 
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+}
+.pct-l { color: var(--color-neon-verde); }
+.pct-e { color: #a5a5a5; }
+.pct-v { color: #e666ff; }
+
+/* --- BOTÓN PRINCIPAL DE DISPARO --- */
 .btn-principal {
-    background-color: var(--color-primario);
-    color: var(--color-blanco);
-    border: none;
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 8px;
+    font-family: 'Rubik Mono One', sans-serif;
+    background-color: var(--color-neon-verde);
+    color: #000000;
+    border: var(--borde-negro);
+    padding: 1.2rem;
+    font-size: 1.3rem;
+    text-transform: uppercase;
     cursor: pointer;
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 2rem;
+    box-shadow: var(--sombra-cartoon);
+    transform: rotate(0.5deg);
+    transition: transform 0.1s;
 }
-.btn-principal:hover { background-color: #047857; }
-.tablero-puntos { background-color: var(--color-blanco); border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-top: 1.5rem; }
-.puntos { font-size: 2.5rem; font-weight: bold; color: var(--color-primario); display: block; }
-.mensaje { font-style: italic; color: #64748b; }
+
+.btn-principal:hover {
+    background-color: var(--color-amarillo);
+    transform: scale(1.02) rotate(-0.5deg);
+}
+
+.btn-principal:active {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0px #000;
+}
+
+/* --- TABLERO DE PUNTOS COMIC --- */
+.tablero-puntos {
+    background-color: #000000;
+    border: 4px solid var(--color-neon-morado);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--sombra-cartoon);
+    margin-top: 2rem;
+    transform: rotate(-0.5deg);
+}
+
+.tablero-puntos p {
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.puntos {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 4rem;
+    color: var(--color-neon-verde);
+    display: block;
+    text-shadow: 4px 4px 0px var(--color-tarjeta);
+    margin: 0.5rem 0;
+}
+
+.mensaje {
+    font-weight: 700;
+    color: var(--color-amarillo) !important;
+}
